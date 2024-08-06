@@ -1,12 +1,20 @@
+import { useState } from 'react';
+
+//import components
+import Form from './Form';
+
 type Props = {
     filterTodos: (criterion: string) => void,
 }
 
 const FilterComponent = ({ filterTodos } : Props) => {
+    
+    const [selectedFilter, setSelectedFilter] = useState('');
 
     const handleSelectedFilter = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
-        console.log('Setting todo filter to: ', target.value);
-        filterTodos(target.value);
+        const selectedFilter: string = target.value;
+        console.log('Setting todo filter to: ', selectedFilter);
+        setSelectedFilter(selectedFilter);
     }
 
   return (
@@ -17,6 +25,11 @@ const FilterComponent = ({ filterTodos } : Props) => {
             <option value='date'>Date</option>
             <option value='check-status'>Check status</option>
         </select>
+        {
+            selectedFilter && (
+                <Form filter={selectedFilter} filterTodos={filterTodos} />
+            )
+        }
     </div>
   )
 }

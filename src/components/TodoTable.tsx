@@ -10,7 +10,7 @@ type Props = {
     todos: TodoInterface[],
     toggleStatus: (id: number) => void,
     sortTodos: (head: SortStateKey) => void, 
-    filterTodos: (todos: TodoInterface[], criterion: string) => void,
+    filterTodos: (criterion: string) => void,
 }
 
 const TodoTable = ({ todos, toggleStatus, sortTodos, filterTodos} : Props) => {
