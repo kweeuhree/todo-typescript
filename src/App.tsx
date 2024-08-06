@@ -61,12 +61,17 @@ function App() {
     setTodos(sortedTodos);
   }
 
+  const filterTodos: (criterion: string) => void = async (criterion) => {
+    const filteredTodos = await filter(todos);
+    setTodos(filteredTodos);
+  }
+
   return (
     <>
       { !todos ? (
         <p>Loading...</p>
       ) : (
-        <TodoTable todos={todos} toggleStatus={toggleStatus} sortTodos={sortTodos}/>
+        <TodoTable todos={todos} toggleStatus={toggleStatus} sortTodos={sortTodos} filterTodos={filterTodos}/>
       )}
     </>
   )
