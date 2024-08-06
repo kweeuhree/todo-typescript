@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 // import reactLogo from './assets/react.svg';
 // import viteLogo from '/vite.svg';
 // import components
-import Todo from './components/Todo';
+import TodoTable from './components/TodoTable'
 // import fetching and helper logic
 import { get } from './utils/fetchTodos';
 import { filterStatus, sort } from './utils/helpers';
@@ -10,8 +10,8 @@ import { filterStatus, sort } from './utils/helpers';
 import { TodoInterface } from './interfaces/interfaces';
 import { SortStateKey } from './types/types'
 import './App.css';
-//import components
-import TableHeads from './components/TableHeads';
+
+
 
 function App() {
   //set states for: todos; edit
@@ -66,16 +66,7 @@ function App() {
       { !todos ? (
         <p>Loading...</p>
       ) : (
-        <table>
-            <tbody>
-
-            <TableHeads sortTodos={sortTodos}/>
-           
-            {todos.map((t) => (
-              <Todo key={t.id} todo={t} toggleStatus={toggleStatus} />
-             ))}
-            </tbody>
-        </table>
+        <TodoTable todos={todos} toggleStatus={toggleStatus} sortTodos={sortTodos}/>
       )}
     </>
   )
