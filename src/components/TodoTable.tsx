@@ -10,13 +10,17 @@ type Props = {
     todos: TodoInterface[],
     toggleStatus: (id: number) => void,
     sortTodos: (head: SortStateKey) => void, 
-    filterTodos: (criterion: string) => void,
+    filterTodos: (criterion: object) => void,
+    displayDefault: () => void;
 }
 
-const TodoTable = ({ todos, toggleStatus, sortTodos, filterTodos} : Props) => {
+const TodoTable = ({ todos, toggleStatus, sortTodos, filterTodos, displayDefault} : Props) => {
   return (
     <>
-    <FilterComponent filterTodos={filterTodos}/>
+    <div className='flex-container space-around'>
+      <FilterComponent filterTodos={filterTodos}/>
+      <button onClick={() => displayDefault()}>See all todos</button>
+    </div>
     <table>
         <tbody>
         <TableHeads sortTodos={sortTodos}/>

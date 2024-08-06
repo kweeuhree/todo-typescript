@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Form from './Form';
 
 type Props = {
-    filterTodos: (criterion: string) => void,
+    filterTodos: (criterion: object) => void,
 }
 
 const FilterComponent = ({ filterTodos } : Props) => {
@@ -18,7 +18,7 @@ const FilterComponent = ({ filterTodos } : Props) => {
     }
 
   return (
-    <div>
+    <div className='flex-container space-between'>
         <label htmlFor='select-filter'>Filter by:</label>
         <select id='select-filter' onChange={handleSelectedFilter}>
             <option value=''>Select filter</option>

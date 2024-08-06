@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import TodoTable from './components/TodoTable'
 // import fetching and helper logic
 import { get } from './utils/fetchTodos';
-import { filterStatus, sort } from './utils/helpers';
+import { filterStatus, sort, filter } from './utils/helpers';
 // import interfaces and types
 import { TodoInterface } from './interfaces/interfaces';
 import { SortStateKey } from './types/types'
@@ -27,9 +27,8 @@ function App() {
   });
   // const [edit, setEdit] = useState<boolean>(false);
   
-  useEffect(() => {
-    //fetch todos
-    const getTodos:() => void = async () => {
+  //fetch todos
+  const getTodos:() => void = async () => {
       try {
         const newTodos: TodoInterface[] = await get();
         setTodos(newTodos);
@@ -38,6 +37,7 @@ function App() {
       }
     }
 
+  useEffect(() => {
     getTodos();
   }, [])
 
@@ -61,9 +61,13 @@ function App() {
     setTodos(sortedTodos);
   }
 
-  const filterTodos: (criterion: string) => void = async (criterion) => {
-    const filteredTodos = await filter(todos);
+  const filterTodos: (criterion: object) => void = async (criterion) => {
+    const filteredTodos: TodoInterface[] = await filter(criterion);
     setTodos(filteredTodos);
+  }
+
+  const displayDefault = () => {
+    getTodos();
   }
 
   return (
@@ -71,7 +75,7 @@ function App() {
       { !todos ? (
         <p>Loading...</p>
       ) : (
-        <TodoTable todos={todos} toggleStatus={toggleStatus} sortTodos={sortTodos} filterTodos={filterTodos}/>
+        <TodoTable todos={todos} toggleStatus={toggleStatus} sortTodos={sortTodos} filterTodos={filterTodos} displayDefault={displayDefault} />
       )}
     </>
   )

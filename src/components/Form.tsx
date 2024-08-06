@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 
 type Props = {
     filter: string,
-    filterTodos: (criterion: string) => void,
+    filterTodos: (criterion: object) => void,
 }
 
 const Form = ({ filter, filterTodos }: Props) => {
 
-    const [formData, setFormData] = useState<{ [key: string]: string | undefined }>({});
+    const [formData, setFormData] = useState({});
 
     const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
         setFormData((prev) => ({
@@ -19,18 +19,14 @@ const Form = ({ filter, filterTodos }: Props) => {
     const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log(formData, 'target value in form');
-        // filterTodos(event.target.value);
-        if (filter === 'date') {
-            filterTodos(formData.date || '');
-          } else {
-            filterTodos(formData.status || '');
-          }
+        filterTodos(formData);
+        setFormData({});
     }
 
     const filterByDate = () => {
         return (
           <>
-            <input type="date" name="date" onChange={handleChange}/>
+            <input type="date" name="date" value={formData.date} onChange={handleChange}/>
           </>
         )
     }

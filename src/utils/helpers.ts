@@ -1,5 +1,6 @@
 //import todo interface
 import { TodoInterface } from "../interfaces/interfaces";
+import { todos } from '../data/sampleData'
 
 export const filterStatus = (todos: TodoInterface[], todoId: number) => {
     const updatedTodos = todos.map((t) => {
@@ -41,4 +42,18 @@ export const sort = async (todos: TodoInterface[], action: string) => {
   }
   console.log(sortedTodos, 'sorted todos')
   return sortedTodos;
+}
+
+export const filter = async (criterion: object) => {
+  let filteredTodos;
+  console.log(criterion, 'criterion inside filter function');
+  if (criterion.status === 'Checked') {
+    filteredTodos = todos.filter((t) => t.status === true);
+  } else if (criterion.status === 'Unchecked') {
+    filteredTodos = todos.filter((t) => t.status === false);
+  } else if (criterion.date) {
+    filteredTodos = todos.filter((t) => t.date === criterion.date);
+  } 
+
+  return filteredTodos;
 }
