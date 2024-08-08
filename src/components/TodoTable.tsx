@@ -15,6 +15,8 @@ type Props = {
 }
 
 const TodoTable = ({ todos, toggleStatus, sortTodos, filterTodos, displayDefault} : Props) => {
+  console.log(todos, 'todos in table')
+  console.log('are todos an array?', Array.isArray(todos));
   return (
     <>
     <div className='flex-container space-around'>
@@ -30,6 +32,7 @@ const TodoTable = ({ todos, toggleStatus, sortTodos, filterTodos, displayDefault
         ))}
         </tbody>
     </table>
+    {/* add new todo */}
     </>
   )
 }

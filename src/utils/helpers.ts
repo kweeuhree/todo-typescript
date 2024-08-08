@@ -16,7 +16,7 @@ export const filterStatus = (todos: TodoInterface[], todoId: number) => {
       return updatedTodos;
 }
 
-export const sort = async (todos: TodoInterface[], action: string) => {
+export const sort:(todos: TodoInterface[], action: string) => Promise<TodoInterface[]> = async (todos, action) => {
   let sortedTodos;
   switch(action) {
     case 'title true':
@@ -40,7 +40,7 @@ export const sort = async (todos: TodoInterface[], action: string) => {
     default:
       sortedTodos = [...todos].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   }
-  console.log(sortedTodos, 'sorted todos')
+  console.log('are sorted todos an array? ', Array.isArray(sortedTodos));
   return sortedTodos;
 }
 

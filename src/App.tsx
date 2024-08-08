@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-// import reactLogo from './assets/react.svg';
-// import viteLogo from '/vite.svg';
+import { useState, useReducer, useEffect } from 'react';
+// import reducer function and initial state
+import { reducer, initialState } from './utils/reducer'; 
 // import components
 import TodoTable from './components/TodoTable'
 // import fetching and helper logic
@@ -19,7 +19,7 @@ function App() {
   // display all todos or Loading
   // display a Todo component 
   // add CRUD functionality
-  const [todos, setTodos] = useState<TodoInterface[]>([]);
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [sortState, setSortState] = useState<Record<SortStateKey, boolean>>({
     title: false,
     date: false,
@@ -31,9 +31,9 @@ function App() {
   const getTodos:() => void = async () => {
       try {
         const newTodos: TodoInterface[] = await get();
-        setTodos(newTodos);
+        dispatch({ type: 'INITIALIZE', payload: newTodos });
       } catch (error) {
-        alert('Something went wrong');
+        dispatch({ type: 'ERROR', payload: 'Failed to fetch data' });
       }
     }
 
@@ -42,8 +42,9 @@ function App() {
   }, [])
 
   const toggleStatus = (todoId: number): void => {
-    const updatedTodos: TodoInterface[] = filterStatus(todos, todoId);
-    setTodos(updatedTodos);
+    // const updatedTodos: TodoInterface[] = filterStatus(todos, todoId);
+    // setTodos(updatedTodos);
+    dispatch({ type: 'TOGGLE_STATUS', payload: todoId });
   }
 
   const verifyAction = (action: SortStateKey) => {
@@ -57,25 +58,39 @@ function App() {
 
   const sortTodos = async (action: SortStateKey) => {
     const verifiedAction = verifyAction(action);
-    const sortedTodos = await sort(todos, verifiedAction);
-    setTodos(sortedTodos);
+    const sortedTodos = await sort(state.todos, verifiedAction);
+    // setTodos(sortedTodos);
+    dispatch({ type: 'SORT', payload: sortedTodos });
   }
 
   const filterTodos: (criterion: CriterionInterface) => void = async (criterion) => {
     const filteredTodos: TodoInterface[]  = await filter(criterion);
-    setTodos(filteredTodos);
+    dispatch({ type: 'FILTER', payload: filteredTodos });
   }
 
   const displayDefault = () => {
     getTodos();
-  }
+  };
+
+  const { todos, error } = state;
+
 
   return (
     <>
+      {
+        error &&
+          <p>{error}</p>
+      }
       { !todos ? (
         <p>Loading...</p>
       ) : (
-        <TodoTable todos={todos} toggleStatus={toggleStatus} sortTodos={sortTodos} filterTodos={filterTodos} displayDefault={displayDefault} />
+        <TodoTable 
+          todos={todos} 
+          toggleStatus={toggleStatus} 
+          sortTodos={sortTodos} 
+          filterTodos={filterTodos} 
+          displayDefault={displayDefault} 
+        />
       )}
     </>
   )
