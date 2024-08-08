@@ -1,35 +1,38 @@
+import { Action } from '../types/types';
 import { TodoInterface } from '../interfaces/interfaces';
 import { filterStatus } from './helpers';
 
 export const initialState = {
     todos: [] as TodoInterface[],
-    error: null,
+    error: '',
   };
   
-  export function reducer(state: typeof initialState, action) {
+  type State = typeof initialState;
+
+  export function reducer(state: State, action: Action): State {
     switch (action.type) {
       case 'INITIALIZE':
         return {
           ...state,
           todos: action.payload,
         };
-      case 'CREATE':
-        return {
-          ...state,
-          todos: [...state.todos, action.payload],
-        };
-      case 'UPDATE':
-        return {
-          ...state,
-          todos: state.todos.map(todo =>
-            todo.id === action.payload.id ? action.payload : todo
-          ),
-        };
-      case 'DELETE':
-        return {
-          ...state,
-          todos: state.todos.filter(todo => todo.id !== action.payload.id),
-        };
+      // case 'CREATE':
+      //   return {
+      //     ...state,
+      //     todos: [...state.todos, action.payload],
+      //   };
+      // case 'UPDATE':
+      //   return {
+      //     ...state,
+      //     todos: state.todos.map(todo =>
+      //       todo.id === action.payload.id ? action.payload : todo
+      //     ),
+      //   };
+      // case 'DELETE':
+      //   return {
+      //     ...state,
+      //     todos: state.todos.filter(todo => todo.id !== action.payload.id),
+      //   };
       case 'TOGGLE_STATUS':
         return {
             ...state,

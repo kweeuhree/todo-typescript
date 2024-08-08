@@ -5,13 +5,11 @@ import { reducer, initialState } from './utils/reducer';
 import TodoTable from './components/TodoTable'
 // import fetching and helper logic
 import { get } from './utils/fetchTodos';
-import { filterStatus, sort, filter } from './utils/helpers';
+import { sort, filter } from './utils/helpers';
 // import interfaces and types
 import { TodoInterface, CriterionInterface } from './interfaces/interfaces';
 import { SortStateKey } from './types/types'
 import './App.css';
-
-
 
 function App() {
   //set states for: todos; edit
