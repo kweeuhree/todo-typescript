@@ -62,7 +62,7 @@ function App() {
   }
 
   const filterTodos: (criterion: CriterionInterface) => void = async (criterion) => {
-    const filteredTodos: TodoInterface[] | undefined = await filter(criterion);
+    const filteredTodos: TodoInterface[]  = await filter(criterion);
     setTodos(filteredTodos);
   }
 
