@@ -55,5 +55,5 @@ export const filter = async (criterion: CriterionInterface) => {
     filteredTodos = todos.filter((t) => t.date === criterion.date);
   } 
 
-  return filteredTodos;
+  return filteredTodos || [];
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import interfaces
-import { CriterionInterface } from '../interfaces/interfaces';
+import { CriterionInterface, FormData } from '../interfaces/interfaces';
 
 type Props = {
     filter: string,
@@ -9,7 +9,7 @@ type Props = {
 
 const Form = ({ filter, filterTodos }: Props) => {
 
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState<FormData>({});
 
     const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
         setFormData((prev) => ({

@@ -14,3 +14,8 @@ export interface CriterionInterface {
     status?: string,
     date?: string,
 }
+
+export interface FormData {
+    date?: string;
+    status?: string;
+  }
