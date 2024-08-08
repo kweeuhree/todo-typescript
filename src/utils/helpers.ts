@@ -1,5 +1,5 @@
 //import todo interface
-import { TodoInterface } from "../interfaces/interfaces";
+import { TodoInterface, CriterionInterface } from "../interfaces/interfaces";
 import { todos } from '../data/sampleData'
 
 export const filterStatus = (todos: TodoInterface[], todoId: number) => {
@@ -44,7 +44,7 @@ export const sort = async (todos: TodoInterface[], action: string) => {
   return sortedTodos;
 }
 
-export const filter = async (criterion: object) => {
+export const filter = async (criterion: CriterionInterface) => {
   let filteredTodos;
   console.log(criterion, 'criterion inside filter function');
   if (criterion.status === 'Checked') {
