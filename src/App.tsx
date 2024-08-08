@@ -7,7 +7,7 @@ import TodoTable from './components/TodoTable'
 import { get } from './utils/fetchTodos';
 import { filterStatus, sort, filter } from './utils/helpers';
 // import interfaces and types
-import { TodoInterface } from './interfaces/interfaces';
+import { TodoInterface, CriterionInterface } from './interfaces/interfaces';
 import { SortStateKey } from './types/types'
 import './App.css';
 
@@ -61,7 +61,7 @@ function App() {
     setTodos(sortedTodos);
   }
 
-  const filterTodos: (criterion: object) => void = async (criterion) => {
+  const filterTodos: (criterion: CriterionInterface) => void = async (criterion) => {
     const filteredTodos: TodoInterface[] = await filter(criterion);
     setTodos(filteredTodos);
   }

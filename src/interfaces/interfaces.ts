@@ -9,3 +9,8 @@ export interface TodoProps {
     todo: TodoInterface;
     toggleStatus: (id: number) => void; 
   }
+
+export interface CriterionInterface {
+    status?: string,
+    date?: string,
+}

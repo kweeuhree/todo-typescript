@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+// import interfaces
+import { CriterionInterface } from '../interfaces/interfaces';
 
 type Props = {
     filter: string,
-    filterTodos: (criterion: object) => void,
+    filterTodos: (criterion: CriterionInterface) => void,
 }
 
 const Form = ({ filter, filterTodos }: Props) => {
