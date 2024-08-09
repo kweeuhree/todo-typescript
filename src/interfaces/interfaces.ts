@@ -16,6 +16,5 @@ export interface CriterionInterface {
 }
 
 export interface FormData {
-    date?: string;
-    status?: string;
+    [key: string]: string;
   }

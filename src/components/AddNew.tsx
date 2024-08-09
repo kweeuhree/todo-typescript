@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
+// import material ui
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+//import interfaces
+import { FormData } from '../interfaces/interfaces';
+//import hooks
+import useFormData from '../utils/useFormData';
 
 type Props = {
     addTodo: (newTodo: string) => void;
@@ -8,24 +13,31 @@ type Props = {
 
 const AddNew = ({ addTodo } : Props) => {
 
-    const [formData, setFormData] = useState({
-        body: '',
-    });
+    const initialState: FormData = { body: '' };
 
-    const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData((prev) => ({
-            ...prev, 
-            [target.name]: target.value
-        }))
-    }
+    const { formData, handleChange, handleSubmit } = useFormData(
+        initialState,
+        (data) => addTodo(data),
+    );
+
+    // const [formData, setFormData] = useState({
+    //     body: '',
+    // });
+
+    // const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    //     setFormData((prev) => ({
+    //         ...prev, 
+    //         [target.name]: target.value
+    //     }))
+    // }
     
 
-    const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        console.log(formData, 'target value in form');
-        addTodo(formData.body);
-        setFormData({body: ''});
-    }
+    // const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
+    //     event.preventDefault();
+    //     console.log(formData, 'target value in form');
+    //     addTodo(formData.body);
+    //     setFormData({body: ''});
+    // }
 
   return (
     <div>

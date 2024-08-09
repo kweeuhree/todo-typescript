@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import useFormData from '../utils/useFormData';
 // import interfaces
 import { CriterionInterface, FormData } from '../interfaces/interfaces';
 
@@ -9,21 +10,27 @@ type Props = {
 
 const Form = ({ filter, filterTodos }: Props) => {
 
-    const [formData, setFormData] = useState<FormData>({});
+    // Initialize the formData state based on the filter type
+    const initialState: FormData = filter === 'date' ? { date: '' } : { status: '' };
 
-    const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData((prev) => ({
-            ...prev, 
-            [target.name]: target.value
-        }))
-    }
+    const { formData, handleChange, handleSubmit } = useFormData(
+        initialState, // Initial state based on the filter
+        (data) => filterTodos(data)
+    );
 
-    const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        console.log(formData, 'target value in form');
-        filterTodos(formData);
-        setFormData({});
-    }
+    // const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    //     setFormData((prev) => ({
+    //         ...prev, 
+    //         [target.name]: target.value
+    //     }))
+    // }
+
+    // const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
+    //     event.preventDefault();
+    //     console.log(formData, 'target value in form');
+    //     filterTodos(formData);
+    //     setFormData({});
+    // }
 
     const filterByDate = () => {
         return (
