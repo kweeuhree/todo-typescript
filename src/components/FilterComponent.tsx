@@ -1,10 +1,10 @@
 import { useState } from 'react';
-
+import { CriterionInterface } from '../interfaces/interfaces';
 //import components
 import Form from './Form';
 
 type Props = {
-    filterTodos: (criterion: object) => void,
+    filterTodos: (criterion: CriterionInterface) => void,
 }
 
 const FilterComponent = ({ filterTodos } : Props) => {

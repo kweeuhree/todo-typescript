@@ -1,4 +1,3 @@
-import React from 'react';
 // import material ui
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -17,27 +16,8 @@ const AddNew = ({ addTodo } : Props) => {
 
     const { formData, handleChange, handleSubmit } = useFormData(
         initialState,
-        (data) => addTodo(data),
+        (data) => addTodo(data.body),
     );
-
-    // const [formData, setFormData] = useState({
-    //     body: '',
-    // });
-
-    // const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    //     setFormData((prev) => ({
-    //         ...prev, 
-    //         [target.name]: target.value
-    //     }))
-    // }
-    
-
-    // const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
-    //     event.preventDefault();
-    //     console.log(formData, 'target value in form');
-    //     addTodo(formData.body);
-    //     setFormData({body: ''});
-    // }
 
   return (
     <div>
