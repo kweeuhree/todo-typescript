@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 type Props = {
     addTodo: (newTodo: string) => void;
@@ -27,10 +29,9 @@ const AddNew = ({ addTodo } : Props) => {
 
   return (
     <div>
-        <p>Add New To Do</p>
-        <form onSubmit={handleSubmit}>
-            <input type='text' name="body" value={formData.body} onChange={handleChange} required />
-            <input type='submit' value="Submit"/>
+        <form className='flex-container' onSubmit={handleSubmit}>
+            <TextField id="filled-basic" label="Add New Todo" color="success" variant="filled" type='text' name="body" value={formData.body} onChange={handleChange} required focused />
+            <Button type='submit' variant="contained" color="success" >Submit</Button>
         </form>
     </div>
   )
