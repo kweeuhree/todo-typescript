@@ -3,9 +3,10 @@ import { useState, useReducer, useEffect } from 'react';
 import { reducer, initialState } from './utils/reducer'; 
 // import components
 import TodoTable from './components/TodoTable'
+import AddNew from './components/AddNew';
 // import fetching and helper logic
 import { get } from './utils/fetchTodos';
-import { sort, filter } from './utils/helpers';
+import { sort, filter, currentDate } from './utils/helpers';
 // import interfaces and types
 import { TodoInterface, CriterionInterface } from './interfaces/interfaces';
 import { SortStateKey } from './types/types'
@@ -23,7 +24,6 @@ function App() {
     date: false,
     check: false,
   });
-  // const [edit, setEdit] = useState<boolean>(false);
   
   //fetch todos
   const getTodos:() => void = async () => {
@@ -70,6 +70,16 @@ function App() {
     getTodos();
   };
 
+  const addTodo = (newTodoString: string) => {
+    const newTodo: TodoInterface = {
+      id: todos.length + 1,
+      body: newTodoString,
+      status: false,
+      date: currentDate,
+    }
+    dispatch({ type: 'CREATE', payload: newTodo});
+  }
+
   const { todos, error } = state;
 
 
@@ -90,6 +100,9 @@ function App() {
           displayDefault={displayDefault} 
         />
       )}
+
+      {/* add new todo */}
+      <AddNew addTodo={addTodo}/>
     </>
   )
 }

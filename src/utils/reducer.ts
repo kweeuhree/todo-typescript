@@ -16,11 +16,11 @@ export const initialState = {
           ...state,
           todos: action.payload,
         };
-      // case 'CREATE':
-      //   return {
-      //     ...state,
-      //     todos: [...state.todos, action.payload],
-      //   };
+      case 'CREATE':
+        return {
+          ...state,
+          todos: [action.payload, ...state.todos],
+        };
       // case 'UPDATE':
       //   return {
       //     ...state,

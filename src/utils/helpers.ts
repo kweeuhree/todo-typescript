@@ -2,6 +2,8 @@
 import { TodoInterface, CriterionInterface } from "../interfaces/interfaces";
 import { todos } from '../data/sampleData'
 
+export const currentDate = new Date().toISOString().split('T')[0];
+
 export const filterStatus = (todos: TodoInterface[], todoId: number) => {
     const updatedTodos = todos.map((t) => {
         if(t.id === todoId) {

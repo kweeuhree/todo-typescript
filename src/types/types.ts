@@ -10,6 +10,6 @@ export type Action =
   | { type: 'TOGGLE_STATUS'; payload: number }
   | { type: 'SORT'; payload: TodoInterface[] }
   | { type: 'FILTER'; payload: TodoInterface[] }
-  | { type: 'CREATE'; payload: TodoInterface[] }
+  | { type: 'CREATE'; payload: TodoInterface }
   | { type: 'UPDATE'; payload: TodoInterface[] }
   | { type: 'DELETE'; payload: TodoInterface[] };
