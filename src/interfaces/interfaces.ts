@@ -8,6 +8,7 @@ export interface TodoInterface {
 export interface TodoProps {
     todo: TodoInterface;
     toggleStatus: (id: number) => void; 
+    manipulateTodo: (action: string, todo: TodoInterface) => void,
   }
 
 export interface CriterionInterface {

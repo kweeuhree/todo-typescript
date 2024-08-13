@@ -21,13 +21,13 @@ export const initialState = {
           ...state,
           todos: [action.payload, ...state.todos],
         };
-      // case 'UPDATE':
-      //   return {
-      //     ...state,
-      //     todos: state.todos.map(todo =>
-      //       todo.id === action.payload.id ? action.payload : todo
-      //     ),
-      //   };
+      case 'UPDATE':
+        return {
+          ...state,
+          todos: state.todos.map(todo =>
+            todo.id === action.payload.id ? action.payload : todo
+          ),
+        };
       case 'DELETE':
         return {
           ...state,

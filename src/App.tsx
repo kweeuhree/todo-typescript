@@ -4,6 +4,7 @@ import { reducer, initialState } from './utils/reducer';
 // import components
 import TodoTable from './components/TodoTable'
 import AddNew from './components/AddNew';
+import UpdateTodo from './components/UpdateTodo';
 // import fetching and helper logic
 import { get } from './utils/fetchTodos';
 import { sort, filter, currentDate } from './utils/helpers';
@@ -24,6 +25,8 @@ function App() {
     date: false,
     check: false,
   });
+
+  const [edit, setEdit] = useState<TodoInterface | null>(null);
   
   //fetch todos
   const getTodos:() => void = async () => {
@@ -83,7 +86,7 @@ function App() {
   const manipulateTodo = (action: string, todo: TodoInterface) => {
     switch(action) {
       case 'edit':
-        dispatch({ type: 'UPDATE', payload: todo });
+        setEdit(todo);
         break;
       case 'delete':
         dispatch({ type: 'DELETE', payload: todo });
@@ -114,6 +117,9 @@ function App() {
 
       {/* add new todo */}
       <AddNew addTodo={addTodo}/>
+
+      {/* update an existing todo */}
+      { edit &&  <UpdateTodo todo={edit} setEdit={setEdit} dispatch={dispatch} />}
     </>
   )
 }
