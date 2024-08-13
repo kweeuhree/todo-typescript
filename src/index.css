@@ -62,7 +62,7 @@ table {
 
 tbody {
   display: grid;
-  grid-template-columns: 50% 30% 20%;
+  grid-template-columns: 46% 26% 16% 6% 6%;
   border: 1px solid whitesmoke;
   padding: 1rem;
 }

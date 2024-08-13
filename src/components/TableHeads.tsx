@@ -9,13 +9,16 @@ type Props = {
 
 const TableHeads = ( { sortTodos }: Props ) => {
 
-    const heads: SortStateKey[] = ['title', 'date', 'check'];
+    const heads: SortStateKey[] = ['title', 'date', 'check', '', ''];
 
     const toDisplay = heads.map((head, index) => (
         <tr key={head+index}>
             <td className='table-head'>
                 <span>{head.toUpperCase()}</span>
-                <span onClick={()=> sortTodos(head)}><FaSort /></span>
+                {/* conditinally display the sorting function */}
+                { head &&
+                     <span onClick={()=> sortTodos(head)}><FaSort /></span> 
+                 }
             </td>
         </tr>
     ))

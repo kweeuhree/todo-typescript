@@ -1,6 +1,9 @@
 import React from 'react';
 //import interfaces
 import { TodoProps } from '../interfaces/interfaces';
+//  import material ui
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditIcon from '@mui/icons-material/Edit';
 
 const Todo: React.FC<TodoProps> = ({ todo, toggleStatus }) => {
 
@@ -20,6 +23,14 @@ const Todo: React.FC<TodoProps> = ({ todo, toggleStatus }) => {
 
         <tr>
           <td><input type="checkbox" onChange={handleCheckboxChange} checked={todo.status ? true : false}/></td>
+        </tr>
+
+        <tr> 
+          <td><EditIcon /></td>
+        </tr>
+
+        <tr> 
+          <td><DeleteForeverIcon /></td>
         </tr>
     </>
   )
