@@ -1,15 +1,13 @@
 //import react icons
 import { FaSort } from "react-icons/fa";
-// import types 
-import { SortStateKey } from "../types/types";
 
 type Props = {
-    sortTodos: (head: SortStateKey) => void;
+    sortTodos: (head: string) => void;
 }
 
 const TableHeads = ( { sortTodos }: Props ) => {
 
-    const heads: string = ['title', 'date', 'check', '', ''];
+    const heads: string[] = ['title', 'date', 'check', '', ''];
 
     const toDisplay = heads.map((head, index) => (
         <tr key={head+index}>
