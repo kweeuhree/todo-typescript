@@ -11,5 +11,5 @@ export type Action =
   | { type: 'SORT'; payload: TodoInterface[] }
   | { type: 'FILTER'; payload: TodoInterface[] }
   | { type: 'CREATE'; payload: TodoInterface }
-  | { type: 'UPDATE'; payload: TodoInterface[] }
-  | { type: 'DELETE'; payload: TodoInterface[] };
+  | { type: 'UPDATE'; payload: TodoInterface }
+  | { type: 'DELETE'; payload: TodoInterface };

@@ -80,6 +80,16 @@ function App() {
     dispatch({ type: 'CREATE', payload: newTodo});
   }
 
+  const manipulateTodo = (action: string, todo: TodoInterface) => {
+    switch(action) {
+      case 'edit':
+        dispatch({ type: 'UPDATE', payload: todo });
+        break;
+      case 'delete':
+        dispatch({ type: 'DELETE', payload: todo });
+    }
+  }
+
   const { todos, error } = state;
 
 
@@ -97,6 +107,7 @@ function App() {
           toggleStatus={toggleStatus} 
           sortTodos={sortTodos} 
           filterTodos={filterTodos} 
+          manipulateTodo={manipulateTodo}
           displayDefault={displayDefault} 
         />
       )}

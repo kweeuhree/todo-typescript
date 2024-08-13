@@ -12,9 +12,10 @@ type Props = {
     sortTodos: (head: SortStateKey) => void, 
     filterTodos: (criterion: CriterionInterface) => void,
     displayDefault: () => void;
+    manipulateTodo: (todoId: number) => void,
 }
 
-const TodoTable = ({ todos, toggleStatus, sortTodos, filterTodos, displayDefault} : Props) => {
+const TodoTable = ({ todos, toggleStatus, sortTodos, filterTodos, displayDefault, manipulateTodo} : Props) => {
   console.log(todos, 'todos in table')
   console.log('are todos an array?', Array.isArray(todos));
   return (
@@ -28,11 +29,10 @@ const TodoTable = ({ todos, toggleStatus, sortTodos, filterTodos, displayDefault
         <TableHeads sortTodos={sortTodos}/>
     
         {todos.map((t) => (
-        <Todo key={t.id} todo={t} toggleStatus={toggleStatus} />
+        <Todo key={t.id} todo={t} toggleStatus={toggleStatus} manipulateTodo={manipulateTodo}/>
         ))}
         </tbody>
     </table>
-    {/* add new todo */}
     </>
   )
 }

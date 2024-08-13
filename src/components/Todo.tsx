@@ -5,10 +5,14 @@ import { TodoProps } from '../interfaces/interfaces';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 
-const Todo: React.FC<TodoProps> = ({ todo, toggleStatus }) => {
+const Todo: React.FC<TodoProps> = ({ todo, toggleStatus, manipulateTodo }) => {
 
     const handleCheckboxChange: () => void = () => {
         toggleStatus(todo.id);
+    }
+
+    const manipulateHandler = (action: string) => {
+      manipulateTodo(action, todo);
     }
 
   return (
@@ -22,15 +26,26 @@ const Todo: React.FC<TodoProps> = ({ todo, toggleStatus }) => {
         </tr>
 
         <tr>
-          <td><input type="checkbox" onChange={handleCheckboxChange} checked={todo.status ? true : false}/></td>
+          <td>
+            <input 
+              className='cursor-pointer' 
+              type="checkbox" 
+              onChange={handleCheckboxChange} 
+              checked={ todo.status ? true : false } 
+            />
+          </td>
         </tr>
 
         <tr> 
-          <td><EditIcon /></td>
+          <td className='cursor-pointer' onClick={ ()=> manipulateHandler('edit') }>
+            <EditIcon />
+          </td>
         </tr>
 
         <tr> 
-          <td><DeleteForeverIcon /></td>
+        <td className='cursor-pointer' onClick={ ()=> manipulateHandler('delete') }>
+            <DeleteForeverIcon />
+          </td>
         </tr>
     </>
   )

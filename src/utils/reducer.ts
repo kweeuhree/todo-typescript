@@ -28,11 +28,11 @@ export const initialState = {
       //       todo.id === action.payload.id ? action.payload : todo
       //     ),
       //   };
-      // case 'DELETE':
-      //   return {
-      //     ...state,
-      //     todos: state.todos.filter(todo => todo.id !== action.payload.id),
-      //   };
+      case 'DELETE':
+        return {
+          ...state,
+          todos: state.todos.filter(todo => todo.id !== action.payload.id),
+        };
       case 'TOGGLE_STATUS':
         return {
             ...state,
