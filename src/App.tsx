@@ -57,7 +57,7 @@ function App() {
     return `${action} ${sortState[action]}`;
   }
 
-  const sortTodos = async (action: string) => {
+  const sortTodos = async (action: SortStateKey) => {
     const verifiedAction = verifyAction(action);
     const sortedTodos = await sort(state.todos, verifiedAction);
     // setTodos(sortedTodos);

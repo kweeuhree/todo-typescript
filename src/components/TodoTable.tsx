@@ -4,11 +4,12 @@ import TableHeads from './TableHeads';
 import FilterComponent from './FilterComponent';
 //import interfaces
 import { TodoInterface, CriterionInterface } from '../interfaces/interfaces';
+import { SortStateKey } from "../types/types";
 
 type Props = {
     todos: TodoInterface[],
     toggleStatus: (id: number) => void,
-    sortTodos: (head: string) => void, 
+    sortTodos: (head: SortStateKey) => void, 
     filterTodos: (criterion: CriterionInterface) => void,
     displayDefault: () => void;
     manipulateTodo: (action: string, todo: TodoInterface) => void,
