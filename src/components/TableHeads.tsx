@@ -9,7 +9,7 @@ type Props = {
 
 const TableHeads = ( { sortTodos }: Props ) => {
 
-    const heads: SortStateKey[] = ['title', 'date', 'check', '', ''];
+    const heads: string = ['title', 'date', 'check', '', ''];
 
     const toDisplay = heads.map((head, index) => (
         <tr key={head+index}>
