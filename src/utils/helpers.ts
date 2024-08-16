@@ -18,7 +18,9 @@ export const filterStatus = (todos: TodoInterface[], todoId: number) => {
       return updatedTodos;
 }
 
-const sortingFunctions = {
+const sortingFunctions: {
+  [key: string]: (a: TodoInterface, b: TodoInterface) => number;
+} = {
   'title true': (a, b) => a.body.localeCompare(b.body), // sort alphabetically in ascending order
   'title false': (a, b) => b.body.localeCompare(a.body), // sort alphabetically in descending order
   'date true': (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(), // sort by date, old first
