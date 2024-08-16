@@ -33,17 +33,19 @@ export const sort: (todos: TodoInterface[], action: string) => Promise<TodoInter
   return sortedTodos;
 }
 
-
 export const filter = async (criterion: CriterionInterface) => {
-  let filteredTodos;
-  console.log(criterion, 'criterion inside filter function');
-  if (criterion.status === 'Checked') {
-    filteredTodos = todos.filter((t) => t.status === true);
-  } else if (criterion.status === 'Unchecked') {
-    filteredTodos = todos.filter((t) => t.status === false);
-  } else if (criterion.date) {
-    filteredTodos = todos.filter((t) => t.date === criterion.date);
-  } 
+  // desctructure criterion object
+  const { status, date } = criterion;
+
+  // filter todos
+  const filteredTodos = todos.filter((t) => 
+    // if status is checked, return todos with status true
+    (status === 'Checked' && t.status) || 
+    // if status is unchecked, return todos with status false
+    (status === 'Unchecked' && !t.status) ||
+    // return todos with the date that equals the input 
+    (date && t.date === date)
+  )
 
   return filteredTodos || [];
 }

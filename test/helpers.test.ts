@@ -1,5 +1,5 @@
 import { expect, describe, it } from 'vitest'
-import { sort } from '../src/utils/helpers';
+import { sort, filter } from '../src/utils/helpers';
 import { TodoInterface } from '../src/interfaces/interfaces';
 
 // test('addTodo returns a todo object', () => {
@@ -64,3 +64,19 @@ const todos: TodoInterface[] = [
       expect(sortedTodos[2].date).toBe('2023-08-11');
     });
   });
+
+  describe('filter function', () => {
+    it('filters todos by checked status', async () => {
+      const filteredTodos = await filter({status: 'Checked'});
+      const expectedOutput = [];
+      expect(filteredTodos).toEqual(expectedOutput);
+    })
+  })
+
+  describe('filter function', () => {
+    it('filters todos by unchecked status', async () => {
+      const filteredTodos = await filter({status: 'Unchecked'});
+      expect(filteredTodos[0]).toEqual( { id: 1, body: "Buy groceries", status: false, date: "2023-12-01" },);
+      expect(filteredTodos[9]).toEqual( { id: 10, body: "Organize workspace", status: false, date: "1994-07-07" },);
+    })
+  })
