@@ -30,8 +30,10 @@ function App() {
   
   //fetch todos
   const getTodos:() => void = async () => {
+    console.log('attempting todo fetch');
       try {
         const newTodos: TodoInterface[] = await get();
+        console.log(newTodos, 'Fetched todos');
         dispatch({ type: 'INITIALIZE', payload: newTodos });
       } catch (error) {
         dispatch({ type: 'ERROR', payload: 'Failed to fetch data' });
