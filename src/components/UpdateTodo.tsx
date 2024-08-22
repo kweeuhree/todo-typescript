@@ -27,13 +27,11 @@ const UpdateTodo = ({ todo, setEdit, dispatch }: Props) => {
         (data) => newTodo(data),
     );
 
-    const newTodo = async (newTodo: FormData) => {
-        console.log(newTodo, 'newTodo to be sent to backend');
+    const newTodo = async (newTodo: string) => {
         const updatedTodo = await update(todo.ID, newTodo);
         if(updatedTodo) {
             
             todo.Body = updatedTodo.body;
-            console.log(todo, 'todo that we`re trying to pass into reducer');
             dispatch({ type: 'UPDATE', payload: todo })
         } 
         setEdit(null);

@@ -1,8 +1,6 @@
 // import { todos } from '../data/sampleData';
 // import { TodoInterface } from '../interfaces/interfaces';
 
-import { TodoInterface } from "../interfaces/interfaces";
-
 export const get = async () => {
     // get todos
     try {
@@ -53,7 +51,7 @@ export const create = async (todoBody: string) => {
 }
 
 // update
-export const update = async (todoID: string, todoBody: FormData) => {
+export const update = async (todoID: string, todoBody: string) => {
     console.log('Attempting updating a todo with ID...', todoID);
     try {
         const response = await fetch(`/api/todo/update/${todoID}`, {

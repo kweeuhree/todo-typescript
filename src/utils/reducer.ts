@@ -28,7 +28,6 @@ export const initialState = {
             todo.ID === action.payload.ID ? { ...todo, Body: action.payload.Body } : todo
           ),
         }; 
-
       case 'DELETE':
         return {
           ...state,

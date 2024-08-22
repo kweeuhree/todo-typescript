@@ -4,12 +4,12 @@ import { todos } from '../data/sampleData'
 
 export const currentDate = new Date().toISOString().split('T')[0];
 
-export const filterStatus = (todos: TodoInterface[], todoId: number) => {
+export const filterStatus = (todos: TodoInterface[], todoId: string) => {
     const updatedTodos = todos.map((t) => {
-        if(t.id === todoId) {
+        if(t.ID === todoId) {
           return {
               ...t,
-            status: !t.status
+            Status: !t.Status
           };
         }
         return t;
@@ -21,12 +21,12 @@ export const filterStatus = (todos: TodoInterface[], todoId: number) => {
 const sortingFunctions: {
   [key: string]: (a: TodoInterface, b: TodoInterface) => number;
 } = {
-  'title true': (a, b) => a.body.localeCompare(b.body), // sort alphabetically in ascending order
-  'title false': (a, b) => b.body.localeCompare(a.body), // sort alphabetically in descending order
-  'date true': (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(), // sort by date, old first
-  'date false': (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(), // sort by date, new first
-  'check true': (a, b) => Number(a.status) - Number(b.status), // group all checked on top
-  'check false': (a, b) => Number(b.status) - Number(a.status), // group all checked on bottom
+  'title true': (a, b) => a.Body.localeCompare(b.Body), // sort alphabetically in ascending order
+  'title false': (a, b) => b.Body.localeCompare(a.Body), // sort alphabetically in descending order
+  'date true': (a, b) => new Date(b.Created).getTime() - new Date(a.Created).getTime(), // sort by date, old first
+  'date false': (a, b) => new Date(a.Created).getTime() - new Date(b.Created).getTime(), // sort by date, new first
+  'check true': (a, b) => Number(a.Status) - Number(b.Status), // group all checked on top
+  'check false': (a, b) => Number(b.Status) - Number(a.Status), // group all checked on bottom
 }
 
 export const sort: (todos: TodoInterface[], action: string) => Promise<TodoInterface[]> = async (todos, action) => {
@@ -41,12 +41,12 @@ export const filter = async (criterion: CriterionInterface) => {
 
   // filter todos
   const filteredTodos = todos.filter((t) => 
-    // if status is checked, return todos with status true
-    (status === 'Checked' && t.status) || 
-    // if status is unchecked, return todos with status false
-    (status === 'Unchecked' && !t.status) ||
+    // if Status is checked, return todos with Status true
+    (status === 'Checked' && t.Status) || 
+    // if Status is unchecked, return todos with Status false
+    (status === 'Unchecked' && !t.Status) ||
     // return todos with the date that equals the input 
-    (date && t.date === date)
+    (date && t.Created === date)
   )
 
   return filteredTodos || [];
