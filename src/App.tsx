@@ -77,9 +77,9 @@ function App() {
 
   const addTodo = async (newTodoString: string) => {
     const createdTodo = await create(newTodoString);
-    // console.log(createdTodo, 'created todo return by backend');
+    console.log(createdTodo, 'created todo return by backend');
     const newTodo: TodoInterface = {
-      ID: '',
+      ID: createdTodo.ID,
       Body: newTodoString,
       Status: false,
       Created: currentDate,
