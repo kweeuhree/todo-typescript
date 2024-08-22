@@ -8,7 +8,7 @@ import { SortStateKey } from "../types/types";
 
 type Props = {
     todos: TodoInterface[],
-    toggleStatus: (id: number) => void,
+    toggleStatus: (id: string) => void,
     sortTodos: (head: SortStateKey) => void, 
     filterTodos: (criterion: CriterionInterface) => void,
     displayDefault: () => void;
@@ -29,7 +29,7 @@ const TodoTable = ({ todos, toggleStatus, sortTodos, filterTodos, displayDefault
         <TableHeads sortTodos={sortTodos}/>
     
         {todos.map((t) => (
-        <Todo key={t.id} todo={t} toggleStatus={toggleStatus} manipulateTodo={manipulateTodo}/>
+        <Todo key={t.ID} todo={t} toggleStatus={toggleStatus} manipulateTodo={manipulateTodo}/>
         ))}
         </tbody>
     </table>

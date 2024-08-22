@@ -5,7 +5,10 @@ export const get = async () => {
     // get todos
     try {
         console.log('Fetching todos...');
-        const response = await fetch(`/api/`);
+        const response = await fetch(`/api`, {
+              method: 'GET',
+              credentials: 'include'
+        });
 
         if (response.ok) {
             try {
@@ -23,17 +26,20 @@ export const get = async () => {
     } catch (error) {
         console.error('Failed fetching todos:', error);
         throw error; // Rethrow error to handle it further up the call chain if needed
-    }
-    
+    }     
 };
 
 export const create = async (todoBody: string) => {
     try {
         console.log('Attempting posting a new todo...');
-        const response = await fetch(`/api/todo/create`, {
+        const response = await fetch('/api/todo/create', {
             method: 'POST',
-            body: todoBody,
-        })
+            headers: {
+                'Content-Type': 'application/json'  
+            },
+            body: JSON.stringify({ body: todoBody }), 
+            credentials: 'include'
+        });
         if(response.ok) {
             const jsonData = await response.json();
             console.log(jsonData, 'created todo');
@@ -41,5 +47,5 @@ export const create = async (todoBody: string) => {
         }
     } catch (error) {
         throw new Error('Failed posting new todo');
-    }
+    } 
 }

@@ -6,7 +6,7 @@ import TodoTable from './components/TodoTable'
 import AddNew from './components/AddNew';
 import UpdateTodo from './components/UpdateTodo';
 // import fetching and helper logic
-import { get } from './utils/fetchTodos';
+import { get, create } from './utils/fetchTodos';
 import { sort, filter, currentDate } from './utils/helpers';
 // import interfaces and types
 import { TodoInterface, CriterionInterface } from './interfaces/interfaces';
@@ -75,12 +75,14 @@ function App() {
     getTodos();
   };
 
-  const addTodo = (newTodoString: string) => {
+  const addTodo = async (newTodoString: string) => {
+    const createdTodo = await create(newTodoString);
+    // console.log(createdTodo, 'created todo return by backend');
     const newTodo: TodoInterface = {
-      id: todos.length + 1,
-      body: newTodoString,
-      status: false,
-      date: currentDate,
+      ID: '',
+      Body: newTodoString,
+      Status: false,
+      Created: currentDate,
     }
     dispatch({ type: 'CREATE', payload: newTodo});
   }

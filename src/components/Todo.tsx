@@ -8,21 +8,24 @@ import EditIcon from '@mui/icons-material/Edit';
 const Todo: React.FC<TodoProps> = ({ todo, toggleStatus, manipulateTodo }) => {
 
     const handleCheckboxChange: () => void = () => {
-        toggleStatus(todo.id);
+        toggleStatus(todo.ID);
     }
 
     const manipulateHandler = (action: string) => {
       manipulateTodo(action, todo);
     }
 
+    const date = new Date(todo.Created);
+    const formattedDate = date.toLocaleString()
+
   return (
     <>
          <tr className='left-align'>
-           <td>{todo.body}</td>
+           <td>{todo.Body}</td>
          </tr>
 
         <tr> 
-          <td>{todo.date}</td>
+          <td>{formattedDate}</td>
         </tr>
 
         <tr>
@@ -31,7 +34,7 @@ const Todo: React.FC<TodoProps> = ({ todo, toggleStatus, manipulateTodo }) => {
               className='cursor-pointer' 
               type="checkbox" 
               onChange={handleCheckboxChange} 
-              checked={ todo.status ? true : false } 
+              checked={ todo.Status ? true : false } 
             />
           </td>
         </tr>

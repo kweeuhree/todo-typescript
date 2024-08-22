@@ -1,13 +1,13 @@
 export interface TodoInterface {
-    id: number;
-    body: string;
-    status: boolean;
-    date: string;
+    ID: string;
+    Body: string;
+    Status: boolean;
+    Created: string;
 }
 
 export interface TodoProps {
     todo: TodoInterface;
-    toggleStatus: (id: number) => void; 
+    toggleStatus: (id: string) => void; 
     manipulateTodo: (action: string, todo: TodoInterface) => void,
   }
 
