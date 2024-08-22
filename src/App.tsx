@@ -6,7 +6,7 @@ import TodoTable from './components/TodoTable'
 import AddNew from './components/AddNew';
 import UpdateTodo from './components/UpdateTodo';
 // import fetching and helper logic
-import { get, create } from './utils/fetchTodos';
+import { get, create, deleteTodo } from './utils/fetchTodos';
 import { sort, filter, currentDate } from './utils/helpers';
 // import interfaces and types
 import { TodoInterface, CriterionInterface } from './interfaces/interfaces';
@@ -86,12 +86,13 @@ function App() {
     dispatch({ type: 'CREATE', payload: newTodo});
   }
 
-  const manipulateTodo = (action: string, todo: TodoInterface) => {
+  const manipulateTodo = async (action: string, todo: TodoInterface) => {
     switch(action) {
       case 'edit':
         setEdit(todo);
         break;
       case 'delete':
+        await deleteTodo(todo.ID);
         dispatch({ type: 'DELETE', payload: todo });
     }
   }

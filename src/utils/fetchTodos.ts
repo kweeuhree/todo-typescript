@@ -73,3 +73,16 @@ export const update = async (todoID: string, todoBody: string) => {
 }
 
 // delete
+export const deleteTodo = async (todoId: string) => {
+    console.log("Attempting deleting a todo...");
+    try {
+        const response = await fetch(`/api/todo/delete/${todoId}`, {
+            method: 'DELETE'
+        })
+        if(response.ok) {
+            console.log('Deleted successfully');
+        }
+    } catch(error) {
+        throw new Error('Failed deleting a todo')
+    }
+}
