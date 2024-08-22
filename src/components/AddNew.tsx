@@ -22,7 +22,7 @@ const AddNew = ({ addTodo } : Props) => {
   return (
     <div>
         <form className='flex-container' onSubmit={handleSubmit}>
-            <TextField id="filled-basic" label="Add New Todo" color="success" variant="filled" type='text' name="body" value={formData.body} onChange={handleChange} required focused />
+            <TextField className="whiteTextField" id="filled-basic" label="Add New Todo" color="success" variant="filled" type='text' name="body" value={formData.body} onChange={handleChange} required focused />
             <Button type='submit' variant="contained" color="success" >Submit</Button>
         </form>
     </div>

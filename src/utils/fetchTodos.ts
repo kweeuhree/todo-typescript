@@ -72,6 +72,21 @@ export const update = async (todoID: string, todoBody: string) => {
     }
 }
 
+// toggle status
+export const toggleTodoStatus = async (todoId: string) => {
+    try {
+        const response = await fetch(`/api/todo/toggle-status/${todoId}`, {
+            method: "PUT"
+        })
+        if(response.ok) {
+            console.log('Status toggled successfully');
+            return true;
+        }
+    } catch(error) {
+        throw new Error('Failed toggling status');
+    }
+}
+
 // delete
 export const deleteTodo = async (todoId: string) => {
     console.log("Attempting deleting a todo...");

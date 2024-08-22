@@ -12,7 +12,6 @@ const useFormData = <T,>(initialState: T, callback: (data: T) => void) => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log(formData, 'Form Data in useFormData hook');
         callback(formData);
         setFormData(initialState);
     };

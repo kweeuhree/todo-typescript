@@ -1,4 +1,4 @@
-import { SetStateAction, Dispatch } from 'react';
+import { SetStateAction, Dispatch, useRef, useEffect } from 'react';
 // import hooks
 import useFormData from '../utils/useFormData';
 //import interfaces
@@ -20,12 +20,21 @@ type Props = {
 }
 
 const UpdateTodo = ({ todo, setEdit, dispatch }: Props) => {
+    const formRef = useRef<HTMLFormElement>(null);
+
     const initialState: FormData = { body: todo.Body };
 
     const { formData, handleChange, handleSubmit } = useFormData(
         initialState,
         (data) => newTodo(data),
     );
+    useEffect(() => {
+        // Focus the first input field inside the form when the component is mounted
+        if (formRef.current) {
+            formRef.current.querySelector('input')?.focus();
+        }
+    }, []);
+
 
     const newTodo = async (newTodo: string) => {
         const updatedTodo = await update(todo.ID, newTodo);
@@ -40,15 +49,16 @@ const UpdateTodo = ({ todo, setEdit, dispatch }: Props) => {
 
   return (
     <div>
-        <form className='flex-container' onSubmit={handleSubmit}>
+        <form ref={formRef} className='flex-container' onSubmit={handleSubmit}>
             <TextField 
+                className="whiteTextField"
                 id="filled-basic" 
                 label="Edit Todo" 
                 color="success" 
                 variant="filled" 
                 type='text' 
                 name="body" 
-                value={formData.Body} 
+                value={formData.body} 
                 onChange={handleChange} 
                 required focused 
             />

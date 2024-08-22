@@ -6,7 +6,7 @@ import TodoTable from './components/TodoTable'
 import AddNew from './components/AddNew';
 import UpdateTodo from './components/UpdateTodo';
 // import fetching and helper logic
-import { get, create, deleteTodo } from './utils/fetchTodos';
+import { get, create, deleteTodo, toggleTodoStatus } from './utils/fetchTodos';
 import { sort, filter, currentDate } from './utils/helpers';
 // import interfaces and types
 import { TodoInterface, CriterionInterface } from './interfaces/interfaces';
@@ -43,10 +43,11 @@ function App() {
     getTodos();
   }, [])
 
-  const toggleStatus = (todoId: string): void => {
-    // const updatedTodos: TodoInterface[] = filterStatus(todos, todoId);
-    // setTodos(updatedTodos);
-    dispatch({ type: 'TOGGLE_STATUS', payload: todoId });
+  const toggleStatus = async (todoId: string) => {
+    const toggled = await toggleTodoStatus(todoId);
+    if(toggled) {
+      dispatch({ type: 'TOGGLE_STATUS', payload: todoId });
+    }
   }
 
   const verifyAction = (action: SortStateKey) => {

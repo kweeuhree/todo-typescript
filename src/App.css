@@ -60,3 +60,7 @@
 .cursor-pointer {
   cursor: pointer;
 }
+
+.whiteTextField .MuiInputBase-input{
+  color: white;
+}
