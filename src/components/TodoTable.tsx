@@ -16,8 +16,6 @@ type Props = {
 }
 
 const TodoTable = ({ todos, toggleStatus, sortTodos, filterTodos, displayDefault, manipulateTodo} : Props) => {
-  console.log(todos, 'todos in table')
-  console.log('are todos an array?', Array.isArray(todos));
   return (
     <>
     <div className='flex-container space-around'>
@@ -28,7 +26,7 @@ const TodoTable = ({ todos, toggleStatus, sortTodos, filterTodos, displayDefault
         <tbody>
         <TableHeads sortTodos={sortTodos}/>
     
-        {todos.map((t) => (
+        {todos?.map((t) => (
         <Todo key={t.ID} todo={t} toggleStatus={toggleStatus} manipulateTodo={manipulateTodo}/>
         ))}
         </tbody>

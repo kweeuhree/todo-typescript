@@ -25,13 +25,14 @@ export const initialState = {
         return {
           ...state,
           todos: state.todos.map(todo =>
-            todo.id === action.payload.id ? action.payload : todo
+            todo.ID === action.payload.ID ? { ...todo, Body: action.payload.Body } : todo
           ),
-        };
+        }; 
+
       case 'DELETE':
         return {
           ...state,
-          todos: state.todos.filter(todo => todo.id !== action.payload.id),
+          todos: state.todos.filter(todo => todo.ID !== action.payload.ID),
         };
       case 'TOGGLE_STATUS':
         return {

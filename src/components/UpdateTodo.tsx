@@ -9,6 +9,8 @@ import Button from '@mui/material/Button';
 //import interfaces and types
 import { TodoInterface } from '../interfaces/interfaces';
 import { Action } from '../types/types'
+//  import backend functions
+import { update } from '../utils/fetchTodos';
 
 
 type Props = {
@@ -18,18 +20,26 @@ type Props = {
 }
 
 const UpdateTodo = ({ todo, setEdit, dispatch }: Props) => {
-    const initialState: FormData = { body: todo.body };
-
-    const newTodo = (newTodo: FormData) => {
-        todo.body = newTodo.body;
-        dispatch({ type: 'UPDATE', payload: todo })
-        setEdit(null);
-    }
+    const initialState: FormData = { body: todo.Body };
 
     const { formData, handleChange, handleSubmit } = useFormData(
         initialState,
         (data) => newTodo(data),
     );
+
+    const newTodo = async (newTodo: FormData) => {
+        console.log(newTodo, 'newTodo to be sent to backend');
+        const updatedTodo = await update(todo.ID, newTodo);
+        if(updatedTodo) {
+            
+            todo.Body = updatedTodo.body;
+            console.log(todo, 'todo that we`re trying to pass into reducer');
+            dispatch({ type: 'UPDATE', payload: todo })
+        } 
+        setEdit(null);
+    }
+
+
   return (
     <div>
         <form className='flex-container' onSubmit={handleSubmit}>
@@ -40,7 +50,7 @@ const UpdateTodo = ({ todo, setEdit, dispatch }: Props) => {
                 variant="filled" 
                 type='text' 
                 name="body" 
-                value={formData.body} 
+                value={formData.Body} 
                 onChange={handleChange} 
                 required focused 
             />

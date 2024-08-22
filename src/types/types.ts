@@ -7,7 +7,7 @@ export type SortStateKey = 'title' | 'date' | 'check';
 export type Action =
   | { type: 'INITIALIZE'; payload: TodoInterface[] }
   | { type: 'ERROR'; payload: string }
-  | { type: 'TOGGLE_STATUS'; payload: number }
+  | { type: 'TOGGLE_STATUS'; payload: string }
   | { type: 'SORT'; payload: TodoInterface[] }
   | { type: 'FILTER'; payload: TodoInterface[] }
   | { type: 'CREATE'; payload: TodoInterface }

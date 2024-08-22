@@ -33,7 +33,6 @@ function App() {
     console.log('attempting todo fetch');
       try {
         const newTodos: TodoInterface[] = await get();
-        console.log(newTodos, 'Fetched todos');
         dispatch({ type: 'INITIALIZE', payload: newTodos });
       } catch (error) {
         dispatch({ type: 'ERROR', payload: 'Failed to fetch data' });
@@ -44,7 +43,7 @@ function App() {
     getTodos();
   }, [])
 
-  const toggleStatus = (todoId: number): void => {
+  const toggleStatus = (todoId: string): void => {
     // const updatedTodos: TodoInterface[] = filterStatus(todos, todoId);
     // setTodos(updatedTodos);
     dispatch({ type: 'TOGGLE_STATUS', payload: todoId });
