@@ -7,11 +7,11 @@ type Props = {
     sortTodos: (head: SortStateKey) => void;
 }
 
+const heads: SortStateKey[] = ['title', 'date', 'check'];
+
+const noHeads: string[] = ['', ''];
+
 const TableHeads = ( { sortTodos }: Props ) => {
-
-    const heads: SortStateKey[] = ['title', 'date', 'check'];
-
-    const noHeads: string[] = ['', ''];
 
     const headColumns = heads.map((head, index) => (
         <tr key={head+index}>
