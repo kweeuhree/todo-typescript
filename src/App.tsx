@@ -7,18 +7,13 @@ import AddNew from './components/AddNew';
 import UpdateTodo from './components/UpdateTodo';
 // import fetching and helper logic
 import { get, create, deleteTodo, toggleTodoStatus } from './utils/fetchTodos';
-import { sort, filter, currentDate } from './utils/helpers';
+import { sort, filter } from './utils/helpers';
 // import interfaces and types
 import { TodoInterface, CriterionInterface } from './interfaces/interfaces';
 import { SortStateKey } from './types/types'
 import './App.css';
 
 function App() {
-  //set states for: todos; edit
-  //add useEffect to fetch todos once
-  // display all todos or Loading
-  // display a Todo component 
-  // add CRUD functionality
   const [state, dispatch] = useReducer(reducer, initialState);
   const [sortState, setSortState] = useState<Record<SortStateKey, boolean>>({
     title: false,
@@ -30,7 +25,6 @@ function App() {
   
   //fetch todos
   const getTodos:() => void = async () => {
-    console.log('attempting todo fetch');
       try {
         const newTodos: TodoInterface[] = await get();
         dispatch({ type: 'INITIALIZE', payload: newTodos });
@@ -77,12 +71,11 @@ function App() {
 
   const addTodo = async (newTodoString: string) => {
     const createdTodo = await create(newTodoString);
-    console.log(createdTodo, 'created todo return by backend');
     const newTodo: TodoInterface = {
       ID: createdTodo.ID,
       Body: newTodoString,
       Status: false,
-      Created: currentDate,
+      Created: createdTodo.Created,
     }
     dispatch({ type: 'CREATE', payload: newTodo});
   }

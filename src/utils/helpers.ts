@@ -2,8 +2,6 @@
 import { TodoInterface, CriterionInterface } from "../interfaces/interfaces";
 import { todos } from '../data/sampleData'
 
-export const currentDate = new Date().toISOString().split('T')[0];
-
 export const filterStatus = (todos: TodoInterface[], todoId: string) => {
     const updatedTodos = todos.map((t) => {
         if(t.ID === todoId) {
@@ -50,4 +48,9 @@ export const filter = async (criterion: CriterionInterface) => {
   )
 
   return filteredTodos || [];
+}
+
+export const formatDate = (dateToFormat: string) => {
+  const formattedDate = new Date(dateToFormat).toLocaleString();
+  return formattedDate;
 }

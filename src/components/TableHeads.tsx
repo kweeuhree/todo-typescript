@@ -8,8 +8,8 @@ type Props = {
 }
 
 const heads: SortStateKey[] = ['title', 'date', 'check'];
-
 const noHeads: string[] = ['', ''];
+
 
 const TableHeads = ( { sortTodos }: Props ) => {
 

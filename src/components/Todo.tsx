@@ -1,6 +1,8 @@
 import React from 'react';
 //import interfaces
 import { TodoProps } from '../interfaces/interfaces';
+// import helper function
+import { formatDate } from '../utils/helpers';
 //  import material ui
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
@@ -15,9 +17,6 @@ const Todo: React.FC<TodoProps> = ({ todo, toggleStatus, manipulateTodo }) => {
       manipulateTodo(action, todo);
     }
 
-    const date = new Date(todo.Created);
-    const formattedDate = date.toLocaleString()
-
   return (
     <>
          <tr className='left-align'>
@@ -25,7 +24,7 @@ const Todo: React.FC<TodoProps> = ({ todo, toggleStatus, manipulateTodo }) => {
          </tr>
 
         <tr> 
-          <td>{formattedDate}</td>
+          <td>{formatDate(todo.Created)}</td>
         </tr>
 
         <tr>
