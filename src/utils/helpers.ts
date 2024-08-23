@@ -1,6 +1,6 @@
 //import todo interface
 import { TodoInterface, CriterionInterface } from "../interfaces/interfaces";
-import { todos } from '../data/sampleData'
+// import { todos } from '../data/sampleData'
 
 export const filterStatus = (todos: TodoInterface[], todoId: string) => {
     const updatedTodos = todos.map((t) => {
@@ -33,9 +33,11 @@ export const sort: (todos: TodoInterface[], action: string) => Promise<TodoInter
   return sortedTodos;
 }
 
-export const filter = async (criterion: CriterionInterface) => {
+export const filter = async (todos: TodoInterface[], criterion: CriterionInterface) => {
   // desctructure criterion object
   const { status, date } = criterion;
+  console.log(criterion, 'criterion in filter helper func');
+  console.log(todos, 'todos list');
 
   // filter todos
   const filteredTodos = todos.filter((t) => 
@@ -54,3 +56,6 @@ export const formatDate = (dateToFormat: string) => {
   const formattedDate = new Date(dateToFormat).toLocaleString();
   return formattedDate;
 }
+
+export const currentDate = new Date().toLocaleString();
+

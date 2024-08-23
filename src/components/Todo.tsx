@@ -50,8 +50,7 @@ const Todo: React.FC<TodoProps> = ({ todo, toggleStatus, manipulateTodo }) => {
         <tr> 
         <td 
           className='cursor-pointer' 
-          onClick={ ()=> manipulateHandler('delete') }
-          >
+          onClick={ ()=> manipulateHandler('delete') }>
             <DeleteForeverIcon />
           </td>
         </tr>

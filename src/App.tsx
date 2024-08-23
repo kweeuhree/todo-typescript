@@ -7,7 +7,7 @@ import AddNew from './components/AddNew';
 import UpdateTodo from './components/UpdateTodo';
 // import fetching and helper logic
 import { get, create, deleteTodo, toggleTodoStatus } from './utils/fetchTodos';
-import { sort, filter } from './utils/helpers';
+import { sort, filter, currentDate } from './utils/helpers';
 // import interfaces and types
 import { TodoInterface, CriterionInterface } from './interfaces/interfaces';
 import { SortStateKey } from './types/types'
@@ -54,14 +54,15 @@ function App() {
   }
 
   const sortTodos = async (action: SortStateKey) => {
+    console.log(action, 'action in sortTodos');
     const verifiedAction = verifyAction(action);
     const sortedTodos = await sort(state.todos, verifiedAction);
-
+    // setTodos(sortedTodos);
     dispatch({ type: 'SORT', payload: sortedTodos });
   }
 
   const filterTodos: (criterion: CriterionInterface) => void = async (criterion) => {
-    const filteredTodos: TodoInterface[]  = await filter(criterion);
+    const filteredTodos: TodoInterface[]  = await filter(state.todos, criterion);
     dispatch({ type: 'FILTER', payload: filteredTodos });
   }
 
@@ -75,7 +76,7 @@ function App() {
       ID: createdTodo.ID,
       Body: newTodoString,
       Status: false,
-      Created: createdTodo.Created,
+      Created: currentDate,
     }
     dispatch({ type: 'CREATE', payload: newTodo});
   }
@@ -122,7 +123,7 @@ function App() {
           todo={edit} 
           setEdit={setEdit} 
           dispatch={dispatch} 
-        />}
+          />}
     </>
   )
 }
