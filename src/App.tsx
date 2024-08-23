@@ -56,7 +56,7 @@ function App() {
   const sortTodos = async (action: SortStateKey) => {
     const verifiedAction = verifyAction(action);
     const sortedTodos = await sort(state.todos, verifiedAction);
-    // setTodos(sortedTodos);
+
     dispatch({ type: 'SORT', payload: sortedTodos });
   }
 
@@ -117,7 +117,12 @@ function App() {
       <AddNew addTodo={addTodo}/>
 
       {/* update an existing todo */}
-      { edit &&  <UpdateTodo todo={edit} setEdit={setEdit} dispatch={dispatch} />}
+      { edit &&  
+        <UpdateTodo 
+          todo={edit} 
+          setEdit={setEdit} 
+          dispatch={dispatch} 
+        />}
     </>
   )
 }
