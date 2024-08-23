@@ -1,6 +1,3 @@
-// import { todos } from '../data/sampleData';
-// import { TodoInterface } from '../interfaces/interfaces';
-
 export const get = async () => {
     // get todos
     try {

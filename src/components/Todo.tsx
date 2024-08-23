@@ -39,13 +39,19 @@ const Todo: React.FC<TodoProps> = ({ todo, toggleStatus, manipulateTodo }) => {
         </tr>
 
         <tr> 
-          <td className='cursor-pointer' onClick={ ()=> manipulateHandler('edit') }>
+          <td 
+            className='cursor-pointer' 
+            onClick={ ()=> manipulateHandler('edit') }
+            >
             <EditIcon />
           </td>
         </tr>
 
         <tr> 
-        <td className='cursor-pointer' onClick={ ()=> manipulateHandler('delete') }>
+        <td 
+          className='cursor-pointer' 
+          onClick={ ()=> manipulateHandler('delete') }
+          >
             <DeleteForeverIcon />
           </td>
         </tr>
