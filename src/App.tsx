@@ -1,4 +1,4 @@
-import { useState, useReducer, useEffect } from 'react';
+import { useState, useReducer, useEffect, useCallback } from 'react';
 // import reducer function and initial state
 import { reducer, initialState } from './utils/reducer'; 
 // import components
@@ -24,18 +24,18 @@ function App() {
   const [edit, setEdit] = useState<TodoInterface | null>(null);
   
   //fetch todos
-  const getTodos:() => void = async () => {
-      try {
-        const newTodos: TodoInterface[] = await get();
-        dispatch({ type: 'INITIALIZE', payload: newTodos });
-      } catch (error) {
-        dispatch({ type: 'ERROR', payload: 'Failed to fetch data' });
-      }
+  const getTodos = useCallback(async () => {
+    try {
+      const newTodos: TodoInterface[] = await get();
+      dispatch({ type: 'INITIALIZE', payload: newTodos });
+    } catch (error) {
+      dispatch({ type: 'ERROR', payload: 'Failed to fetch data' });
     }
+  }, []);
 
   useEffect(() => {
     getTodos();
-  }, [])
+  }, [getTodos])
 
   const toggleStatus = async (todoId: string) => {
     const toggled = await toggleTodoStatus(todoId);
@@ -44,33 +44,31 @@ function App() {
     }
   }
 
-  const verifyAction = (action: SortStateKey) => {
-    setSortState((prev) => ({
-      ...prev,          
-      [action]: !prev[action] 
-    }));
+  const sortTodos = useCallback(async (action: SortStateKey) => {
+    const verifyAction = (action: SortStateKey) => {
+      setSortState((prev) => ({
+        ...prev,          
+        [action]: !prev[action] 
+      }));
+  
+      return `${action} ${sortState[action]}`;
+    }
 
-    return `${action} ${sortState[action]}`;
-  }
-
-  const sortTodos = async (action: SortStateKey) => {
-    console.log(action, 'action in sortTodos');
     const verifiedAction = verifyAction(action);
     const sortedTodos = await sort(state.todos, verifiedAction);
-    // setTodos(sortedTodos);
     dispatch({ type: 'SORT', payload: sortedTodos });
-  }
+  }, [state.todos]);
 
-  const filterTodos: (criterion: CriterionInterface) => void = async (criterion) => {
+  const filterTodos = useCallback(async (criterion: CriterionInterface) => {
     const filteredTodos: TodoInterface[]  = await filter(state.todos, criterion);
     dispatch({ type: 'FILTER', payload: filteredTodos });
-  }
+  }, [state.todos]);
 
   const displayDefault = () => {
     getTodos();
   };
 
-  const addTodo = async (newTodoString: string) => {
+  const addTodo = useCallback(async (newTodoString: string) => {
     const createdTodo = await create(newTodoString);
     const newTodo: TodoInterface = {
       ID: createdTodo.ID,
@@ -78,10 +76,10 @@ function App() {
       Status: false,
       Created: currentDate,
     }
-    dispatch({ type: 'CREATE', payload: newTodo});
-  }
+    dispatch({ type: 'CREATE', payload: newTodo });
+  }, []);
 
-  const manipulateTodo = async (action: string, todo: TodoInterface) => {
+  const manipulateTodo = useCallback(async (action: string, todo: TodoInterface) => {
     switch(action) {
       case 'edit':
         setEdit(todo);
@@ -90,7 +88,7 @@ function App() {
         await deleteTodo(todo.ID);
         dispatch({ type: 'DELETE', payload: todo });
     }
-  }
+  }, []);
 
   const { todos, error } = state;
 
