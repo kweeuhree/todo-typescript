@@ -20,7 +20,7 @@ export interface FormData {
     [key: string]: string;
   }
 
-export interface User {
+export interface UserInterface {
   Uuid: string;
   Name: string;
   Email: string;
