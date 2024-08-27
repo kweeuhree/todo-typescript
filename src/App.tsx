@@ -1,6 +1,7 @@
 import { useState, useReducer, useEffect, useCallback } from 'react';
 // import reducer function and initial state
-import { reducer, initialState } from './utils/reducer'; 
+import { reducer as todoReducer, initialState as todoInitialState} from './reducer/todo_reducer'; 
+import { reducer as userReducer, initialState as userInitialState} from './reducer/user_reducer'; 
 // import components
 import TodoTable from './components/TodoTable'
 import AddNew from './components/AddNew';
@@ -14,7 +15,8 @@ import { SortStateKey } from './types/types'
 import './App.css';
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [todoState, todoDispatch] = useReducer(todoReducer, todoInitialState);
+  const [userState, userDispatch] = useReducer(userReducer, userInitialState);
   const [sortState, setSortState] = useState<Record<SortStateKey, boolean>>({
     title: false,
     date: false,
@@ -27,9 +29,9 @@ function App() {
   const getTodos = useCallback(async () => {
     try {
       const newTodos: TodoInterface[] = await get();
-      dispatch({ type: 'INITIALIZE', payload: newTodos });
+      todoDispatch({ type: 'INITIALIZE', payload: newTodos });
     } catch (error) {
-      dispatch({ type: 'ERROR', payload: 'Failed to fetch data' });
+      todoDispatch({ type: 'ERROR', payload: 'Failed to fetch data' });
     }
   }, []);
 
@@ -40,7 +42,7 @@ function App() {
   const toggleStatus = async (todoId: string) => {
     const toggled = await toggleTodoStatus(todoId);
     if(toggled) {
-      dispatch({ type: 'TOGGLE_STATUS', payload: todoId });
+      todoDispatch({ type: 'TOGGLE_STATUS', payload: todoId });
     }
   }
 
@@ -55,14 +57,14 @@ function App() {
     }
 
     const verifiedAction = verifyAction(action);
-    const sortedTodos = await sort(state.todos, verifiedAction);
-    dispatch({ type: 'SORT', payload: sortedTodos });
-  }, [state.todos]);
+    const sortedTodos = await sort(todoState.todos, verifiedAction);
+    todoDispatch({ type: 'SORT', payload: sortedTodos });
+  }, [sortState, todoState.todos]);
 
   const filterTodos = useCallback(async (criterion: CriterionInterface) => {
-    const filteredTodos: TodoInterface[]  = await filter(state.todos, criterion);
-    dispatch({ type: 'FILTER', payload: filteredTodos });
-  }, [state.todos]);
+    const filteredTodos: TodoInterface[]  = await filter(todoState.todos, criterion);
+    todoDispatch({ type: 'FILTER', payload: filteredTodos });
+  }, [todoState.todos]);
 
   const displayDefault = () => {
     getTodos();
@@ -76,7 +78,7 @@ function App() {
       Status: false,
       Created: currentDate,
     }
-    dispatch({ type: 'CREATE', payload: newTodo });
+    todoDispatch({ type: 'CREATE', payload: newTodo });
   }, []);
 
   const manipulateTodo = useCallback(async (action: string, todo: TodoInterface) => {
@@ -86,11 +88,11 @@ function App() {
         break;
       case 'delete':
         await deleteTodo(todo.ID);
-        dispatch({ type: 'DELETE', payload: todo });
+        todoDispatch({ type: 'DELETE', payload: todo });
     }
   }, []);
 
-  const { todos, error } = state;
+  const { todos, error } = todoState;
 
 
   return (
@@ -120,7 +122,7 @@ function App() {
         <UpdateTodo 
           todo={edit} 
           setEdit={setEdit} 
-          dispatch={dispatch} 
+          dispatch={todoDispatch} 
           />}
     </>
   )
