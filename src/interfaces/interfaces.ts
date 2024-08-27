@@ -19,3 +19,10 @@ export interface CriterionInterface {
 export interface FormData {
     [key: string]: string;
   }
+
+export interface User {
+  Uuid: string;
+  Name: string;
+  Email: string;
+  csrf_token: string;
+}
