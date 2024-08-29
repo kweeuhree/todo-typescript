@@ -1,6 +1,6 @@
-import { Action } from '../types/types';
+import { TodoAction } from '../types/types';
 import { TodoInterface } from '../interfaces/interfaces';
-import { filterStatus } from './helpers';
+import { filterStatus } from '../utils/helpers';
 
 export const initialState = {
     todos: [] as TodoInterface[],
@@ -9,7 +9,7 @@ export const initialState = {
   
   type State = typeof initialState;
 
-  export function reducer(state: State, action: Action): State {
+  export function reducer(state: State, action: TodoAction): State {
     switch (action.type) {
       case 'INITIALIZE':
         return {

@@ -1,4 +1,4 @@
-import { TodoInterface, UserInterface } from "../interfaces/interfaces";
+import { TodoInterface } from "../interfaces/interfaces";
 
 // Define a type for the keys of sortState
 export type SortStateKey = 'title' | 'date' | 'check';
@@ -14,11 +14,25 @@ export type TodoAction =
   | { type: 'UPDATE'; payload: TodoInterface }
   | { type: 'DELETE'; payload: TodoInterface };
 
+export interface Form {
+  email: string,
+  password: string,
+  Flash?: string,
+  }
+
+export type SignUpForm = Form & {
+  name?: string,
+}
+
+export type LoginForm = Form & {
+  Uuid?: string,
+  csrfToken?: string,
+}
 
 // Define a type for user reducer actions
 export type UserAction =
-  | { type: 'SIGNUP'; payload: UserInterface }
-  | { type: 'LOGIN'; payload: UserInterface }
+  | { type: 'SIGNUP'; payload: SignUpForm }
+  | { type: 'LOGIN'; payload: LoginForm }
   | { type: 'LOGOUT'}
   | { type: 'ERROR'; payload: string }
   | { type: 'CSRF_TOKEN'; payload: string };

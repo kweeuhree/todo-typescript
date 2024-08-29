@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { CriterionInterface } from '../interfaces/interfaces';
 //import components
-import Form from './Form';
+import FilterTodosForm from './FilterTodosForm';
 
 type Props = {
     filterTodos: (criterion: CriterionInterface) => void,
@@ -27,7 +27,7 @@ const FilterComponent = ({ filterTodos } : Props) => {
         </select>
         {
             selectedFilter && (
-                <Form filter={selectedFilter} filterTodos={filterTodos} />
+                <FilterTodosForm filter={selectedFilter} filterTodos={filterTodos} />
             )
         }
     </div>

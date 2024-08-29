@@ -2,10 +2,15 @@ import { useState, useReducer, useEffect, useCallback } from 'react';
 // import reducer function and initial state
 import { reducer as todoReducer, initialState as todoInitialState} from './reducer/todo_reducer'; 
 import { reducer as userReducer, initialState as userInitialState} from './reducer/user_reducer'; 
+// import custom hook that sets status messages
+import useMessage from './utils/useMessage';
 // import components
 import TodoTable from './components/TodoTable'
 import AddNew from './components/AddNew';
 import UpdateTodo from './components/UpdateTodo';
+import UserSignUpLoginForm from './components/UserSignUpLoginForm';
+// import material ui
+import Button from '@mui/material/Button';
 // import fetching and helper logic
 import { get, create, deleteTodo, toggleTodoStatus } from './utils/fetchTodos';
 import { sort, filter, currentDate } from './utils/helpers';
@@ -14,9 +19,12 @@ import { TodoInterface, CriterionInterface } from './interfaces/interfaces';
 import { SortStateKey } from './types/types'
 import './App.css';
 
+
 function App() {
   const [todoState, todoDispatch] = useReducer(todoReducer, todoInitialState);
   const [userState, userDispatch] = useReducer(userReducer, userInitialState);
+  const [userForm, setUserForm] = useState('');
+  const [message, updateMessage] = useMessage();
   const [sortState, setSortState] = useState<Record<SortStateKey, boolean>>({
     title: false,
     date: false,
@@ -92,11 +100,26 @@ function App() {
     }
   }, []);
 
+  const showFormHandler = (formType: string) => {
+    return setUserForm(formType);
+  }
+
   const { todos, error } = todoState;
 
 
   return (
     <>
+    <p>{message}</p>
+    {/* sign up and login buttons */}
+    <Button onClick={() => showFormHandler('signup')}>Sign Up</Button>
+    <Button onClick={() => showFormHandler('login')}>Login</Button>
+    { userForm && 
+        <UserSignUpLoginForm 
+          formType={userForm} 
+          dispatch={userDispatch} 
+          updateMessage={updateMessage} 
+          setUserForm={setUserForm}
+          /> }
       {
         error &&
           <p>{error}</p>

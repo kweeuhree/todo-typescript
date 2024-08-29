@@ -8,7 +8,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 //import interfaces and types
 import { TodoInterface } from '../interfaces/interfaces';
-import { Action } from '../types/types'
+import { TodoAction } from '../types/types'
 //  import backend functions
 import { update } from '../utils/fetchTodos';
 
@@ -16,7 +16,7 @@ import { update } from '../utils/fetchTodos';
 type Props = {
     todo: TodoInterface,
     setEdit: Dispatch<SetStateAction<TodoInterface | null>>,
-    dispatch: Dispatch<Action>,
+    dispatch: Dispatch<TodoAction>,
 }
 
 const UpdateTodo = ({ todo, setEdit, dispatch }: Props) => {

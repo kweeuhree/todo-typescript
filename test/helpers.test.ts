@@ -9,74 +9,74 @@ import { TodoInterface } from '../src/interfaces/interfaces';
 
 // Sample todos for testing
 const todos: TodoInterface[] = [
-    { id: 1, body: 'Do the dishes', status: false, date: '2023-08-10' },
-    { id: 2, body: 'Buy groceries', status: true, date: '2023-08-11' },
-    { id: 3, body: 'Pay bills', status: false, date: '2023-08-09' },
+    {ID: '1', Body: 'Do the dishes', Status: false, Created: '2023-08-10' },
+    {ID: '2', Body: 'Buy groceries', Status: true, Created: '2023-08-11' },
+    {ID: '3', Body: 'Pay bills', Status: false, Created: '2023-08-09' },
   ];
   
   describe('sort function', () => {
     it('sorts todos by title in ascending order', async () => {
       const sortedTodos = await sort(todos, 'title true');
-      expect(sortedTodos[0].body).toBe('Buy groceries');
-      expect(sortedTodos[1].body).toBe('Do the dishes');
-      expect(sortedTodos[2].body).toBe('Pay bills');
+      expect(sortedTodos[0].Body).toBe('Buy groceries');
+      expect(sortedTodos[1].Body).toBe('Do the dishes');
+      expect(sortedTodos[2].Body).toBe('Pay bills');
     });
   
     it('sorts todos by title in descending order', async () => {
       const sortedTodos = await sort(todos, 'title false');
-      expect(sortedTodos[0].body).toBe('Pay bills');
-      expect(sortedTodos[1].body).toBe('Do the dishes');
-      expect(sortedTodos[2].body).toBe('Buy groceries');
+      expect(sortedTodos[0].Body).toBe('Pay bills');
+      expect(sortedTodos[1].Body).toBe('Do the dishes');
+      expect(sortedTodos[2].Body).toBe('Buy groceries');
     });
   
-    it('sorts todos by date in descending order', async () => {
-      const sortedTodos = await sort(todos, 'date true');
-      expect(sortedTodos[0].date).toBe('2023-08-11');
-      expect(sortedTodos[1].date).toBe('2023-08-10');
-      expect(sortedTodos[2].date).toBe('2023-08-09');
+    it('sorts todos by Created in descending order', async () => {
+      const sortedTodos = await sort(todos, 'Created true');
+      expect(sortedTodos[0].Created).toBe('2023-08-11');
+      expect(sortedTodos[1].Created).toBe('2023-08-10');
+      expect(sortedTodos[2].Created).toBe('2023-08-09');
     });
   
-    it('sorts todos by date in ascending order', async () => {
-      const sortedTodos = await sort(todos, 'date false');
-      expect(sortedTodos[0].date).toBe('2023-08-09');
-      expect(sortedTodos[1].date).toBe('2023-08-10');
-      expect(sortedTodos[2].date).toBe('2023-08-11');
+    it('sorts todos by Created in ascending order', async () => {
+      const sortedTodos = await sort(todos, 'Created false');
+      expect(sortedTodos[0].Created).toBe('2023-08-09');
+      expect(sortedTodos[1].Created).toBe('2023-08-10');
+      expect(sortedTodos[2].Created).toBe('2023-08-11');
     });
   
-    it('sorts todos by status in ascending order (false to true)', async () => {
+    it('sorts todos by Status in ascending order (false to true)', async () => {
       const sortedTodos = await sort(todos, 'check true');
-      expect(sortedTodos[0].status).toBe(false);
-      expect(sortedTodos[1].status).toBe(false);
-      expect(sortedTodos[2].status).toBe(true);
+      expect(sortedTodos[0].Status).toBe(false);
+      expect(sortedTodos[1].Status).toBe(false);
+      expect(sortedTodos[2].Status).toBe(true);
     });
   
-    it('sorts todos by status in descending order (true to false)', async () => {
+    it('sorts todos by Status in descending order (true to false)', async () => {
       const sortedTodos = await sort(todos, 'check false');
-      expect(sortedTodos[0].status).toBe(true);
-      expect(sortedTodos[1].status).toBe(false);
-      expect(sortedTodos[2].status).toBe(false);
+      expect(sortedTodos[0].Status).toBe(true);
+      expect(sortedTodos[1].Status).toBe(false);
+      expect(sortedTodos[2].Status).toBe(false);
     });
   
-    it('returns todos sorted by date in ascending order when action is default', async () => {
-      const sortedTodos = await sort(todos, 'invalid_action');
-      expect(sortedTodos[0].date).toBe('2023-08-09');
-      expect(sortedTodos[1].date).toBe('2023-08-10');
-      expect(sortedTodos[2].date).toBe('2023-08-11');
+    it('returns todos sorted by Created in ascending order when action is default', async () => {
+      const sortedTodos = await sort(todos, 'invaID_action');
+      expect(sortedTodos[0].Created).toBe('2023-08-09');
+      expect(sortedTodos[1].Created).toBe('2023-08-10');
+      expect(sortedTodos[2].Created).toBe('2023-08-11');
     });
   });
 
   describe('filter function', () => {
-    it('filters todos by checked status', async () => {
-      const filteredTodos = await filter({status: 'Checked'});
+    it('filters todos by checked Status', async () => {
+      const filteredTodos = await filter(todos, {status: 'Checked'});
       const expectedOutput = [];
       expect(filteredTodos).toEqual(expectedOutput);
     })
   })
 
   describe('filter function', () => {
-    it('filters todos by unchecked status', async () => {
-      const filteredTodos = await filter({status: 'Unchecked'});
-      expect(filteredTodos[0]).toEqual( { id: 1, body: "Buy groceries", status: false, date: "2023-12-01" },);
-      expect(filteredTodos[9]).toEqual( { id: 10, body: "Organize workspace", status: false, date: "1994-07-07" },);
+    it('filters todos by unchecked Status', async () => {
+      const filteredTodos = await filter(todos, {status: 'Unchecked'});
+      expect(filteredTodos[0]).toEqual( {ID: 1, Body: "Buy groceries", Status: false, Created: "2023-12-01" },);
+      expect(filteredTodos[9]).toEqual( {ID: 10, Body: "Organize workspace", Status: false, Created: "1994-07-07" },);
     })
   })
