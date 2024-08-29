@@ -12,7 +12,7 @@ export const initialState = {
 type State = typeof initialState;
 
 // create reducer function
-export const reducer = async (state: State, action: UserAction) => {
+export const reducer = (state: State, action: UserAction) => {
     switch(action.type) {
         case 'SIGNUP':
             return {
@@ -29,7 +29,8 @@ export const reducer = async (state: State, action: UserAction) => {
                 isAuthenticated: true,
                 user: {
                     ...state.user,
-                    Uuid: action.payload.Uuid,
+                    Uuid: action.payload.uuid,
+                    Email: action.payload.email,
                     csrfToken: action.payload.csrfToken,
                 }
         };

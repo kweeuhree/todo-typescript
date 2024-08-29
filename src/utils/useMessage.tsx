@@ -7,6 +7,9 @@ const useMessage = (): [string, (newMessage: string) => void] => {
   // handle update status message
   const updateMessage = (newMessage: string) => {
     setMessage(newMessage);
+    setTimeout(() => {
+      setMessage('');
+    }, 5000)
   }
 
   return [message, updateMessage];

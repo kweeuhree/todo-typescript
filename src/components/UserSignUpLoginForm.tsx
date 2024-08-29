@@ -26,17 +26,16 @@ const UserSignUpLoginForm = ({ formType, dispatch, updateMessage, setUserForm }:
         );
     
         const handleFormSubmit = async (data: SignUpForm | LoginForm) => {
-            console.log(data, 'data in handleFormSubmit');
             if (formType === 'signup') {
                 const userIsSignedUp: SignUpForm = await userSignUp(data);
-                if(userIsSignedUp) {
-                    handleSuccessfulSubmission('SIGNUP', data, 'login', userIsSignedUp.Flash);
-                }
+                userIsSignedUp &&
+                    handleSuccessfulSubmission('SIGNUP', userIsSignedUp, 'login', userIsSignedUp.Flash);
+                    
             } else {
                 const userIsLoggedIn: LoginForm | undefined = await userLogin(data);
-                if(userIsLoggedIn) {
-                    handleSuccessfulSubmission('LOGIN', data, '', userIsLoggedIn.Flash);
-                }
+                userIsLoggedIn ?
+                    handleSuccessfulSubmission('LOGIN', userIsLoggedIn, '', userIsLoggedIn.Flash) :
+                    updateMessage('Incorrect email or password.')
             }
         }
 

@@ -1,3 +1,5 @@
+import { Error } from "@mui/icons-material";
+
 export const get = async () => {
     // get todos
     try {
@@ -8,21 +10,12 @@ export const get = async () => {
         });
 
         if (response.ok) {
-            try {
                 const jsonData = await response.json();
                 console.log('Todos are fetched from server...');
                 return jsonData;
-            } catch (jsonError) {
-                console.error('Error parsing JSON:', jsonError);
-                throw new Error('Failed to parse JSON');
-            }
-        } else {
-            console.error('Response not OK:', response.statusText);
-            throw new Error(`Failed to fetch: ${response.statusText}`);
         }
     } catch (error) {
         console.error('Failed fetching todos:', error);
-        throw error; // Rethrow error to handle it further up the call chain if needed
     }     
 };
 
@@ -63,9 +56,10 @@ export const update = async (todoID: string, todoBody: string) => {
             const jsonData = await response.json();
             console.log(jsonData, 'updated todo');
             return jsonData;
-        }
+        } 
+
     } catch(error) {
-        throw new Error('Failed updating todo.')
+        throw new Error('Failed updating todo.');
     }
 }
 
@@ -95,6 +89,6 @@ export const deleteTodo = async (todoId: string) => {
             console.log('Deleted successfully');
         }
     } catch(error) {
-        throw new Error('Failed deleting a todo')
+        throw new Error('Failed deleting a todo');
     }
 }

@@ -61,9 +61,9 @@ export const userLogin = async (formData: LoginForm) => {
         });
         if(response.ok) {
             const jsonData = await response.json();
-            console.log(jsonData, 'logged in user details');
+            console.log(jsonData, 'userinfo');
             const loggedInUserDetails: LoginForm = { ...jsonData, csrfToken };
-
+            console.log(loggedInUserDetails, 'logged in user details');
             return loggedInUserDetails;
         }
     } catch (error) {

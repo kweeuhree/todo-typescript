@@ -25,7 +25,7 @@ export type SignUpForm = Form & {
 }
 
 export type LoginForm = Form & {
-  Uuid?: string,
+  uuid?: string,
   csrfToken?: string,
 }
 
