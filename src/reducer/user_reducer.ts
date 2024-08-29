@@ -12,7 +12,7 @@ export const initialState = {
 type State = typeof initialState;
 
 // create reducer function
-export const reducer = (state: State, action: UserAction) => {
+export const reducer = (state: State, action: UserAction): State => {
     switch(action.type) {
         case 'SIGNUP':
             return {
@@ -35,10 +35,22 @@ export const reducer = (state: State, action: UserAction) => {
                 }
         };
         case 'LOGOUT':
-            return console.log('attempting log out');
-        case 'CSRF_TOKEN':
-            return console.log('attempting csrf token');
+            return {
+                ...state,
+                isAuthenticated: false,
+                user: {
+                    ...state.user,
+                    Uuid: '',
+                    Email: '',
+                    csrfToken: '',
+                }
+            };
         case 'ERROR':
-            return console.log('error');
+            return {
+                ...state,
+                authError: action.payload
+            };
+        default:
+                throw new Error('Unknown action type');
     }
 };

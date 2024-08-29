@@ -70,3 +70,23 @@ export const userLogin = async (formData: LoginForm) => {
         throw new Error("Failed user sign up");
     }
 }
+
+export const userLogout = async (csrfToken: string) => {
+    console.log('Attempting user logging out');
+    try {
+        const response = await fetch(`/api/user/logout`, {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "applicaton/json",
+                "X-CSRF-TOKEN": csrfToken
+            }
+        })
+        if(response.ok) {
+            const logoutResponse = await response.json();
+            console.log(logoutResponse, 'log out response');
+            return logoutResponse;
+        }
+    } catch (error) {
+        throw new Error('Failed logout');
+    }
+}

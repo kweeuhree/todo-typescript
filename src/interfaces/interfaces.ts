@@ -24,5 +24,5 @@ export interface UserInterface {
   Uuid: string;
   Name: string;
   Email: string;
-  csrf_token: string;
+  csrfToken: string;
 }

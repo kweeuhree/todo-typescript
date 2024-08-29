@@ -39,7 +39,6 @@ const UpdateTodo = ({ todo, setEdit, dispatch }: Props) => {
     const newTodo = async (newTodo: string) => {
         const updatedTodo = await update(todo.ID, newTodo);
         if(updatedTodo) {
-            
             todo.Body = updatedTodo.body;
             dispatch({ type: 'UPDATE', payload: todo })
         } 

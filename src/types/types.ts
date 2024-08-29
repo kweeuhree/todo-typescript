@@ -21,12 +21,12 @@ export interface Form {
   }
 
 export type SignUpForm = Form & {
-  name?: string,
+  name: string,
 }
 
 export type LoginForm = Form & {
-  uuid?: string,
-  csrfToken?: string,
+  uuid: string,
+  csrfToken: string,
 }
 
 // Define a type for user reducer actions

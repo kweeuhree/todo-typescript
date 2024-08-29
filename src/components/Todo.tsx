@@ -7,55 +7,50 @@ import { formatDate } from '../utils/helpers';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 
-const Todo: React.FC<TodoProps> = ({ todo, toggleStatus, manipulateTodo }) => {
+const Todo: React.FC<TodoProps> = ({ todo, toggleStatus, manipulateTodo, userState }) => {
 
     const handleCheckboxChange: () => void = () => {
-        toggleStatus(todo.ID);
+      userState.isAuthenticated && toggleStatus(todo.ID);
     }
 
     const manipulateHandler = (action: string) => {
       manipulateTodo(action, todo);
     }
+    const renderActionIcon = (action: string, Icon: React.ReactNode) => (
+      userState.isAuthenticated && (
+         <tr>
+           <td className='cursor-pointer' onClick={() => manipulateHandler(action)}>
+              {Icon}
+           </td>
+         </tr>
+      )
+  );
 
   return (
-    <>
-         <tr className='left-align'>
-           <td>{todo.Body}</td>
-         </tr>
+      <>
+          <tr className='left-align'>
+              <td>{todo.Body}</td>
+          </tr>
 
-        <tr> 
-          <td>{formatDate(todo.Created)}</td>
-        </tr>
+          <tr> 
+              <td>{formatDate(todo.Created)}</td>
+          </tr>
 
-        <tr>
-          <td>
-            <input 
-              className='cursor-pointer' 
-              type="checkbox" 
-              onChange={handleCheckboxChange} 
-              checked={ todo.Status ? true : false } 
-            />
-          </td>
-        </tr>
+          <tr>
+              <td>
+                  <input 
+                      className='cursor-pointer' 
+                      type="checkbox" 
+                      onChange={handleCheckboxChange} 
+                      checked={ todo.Status ? true : false } 
+                  />
+              </td>
+          </tr>
 
-        <tr> 
-          <td 
-            className='cursor-pointer' 
-            onClick={ ()=> manipulateHandler('edit') }
-            >
-            <EditIcon />
-          </td>
-        </tr>
-
-        <tr> 
-        <td 
-          className='cursor-pointer' 
-          onClick={ ()=> manipulateHandler('delete') }>
-            <DeleteForeverIcon />
-          </td>
-        </tr>
-    </>
-  )
+          {renderActionIcon('edit', <EditIcon />)}
+          {renderActionIcon('delete', <DeleteForeverIcon />)}
+      </>
+  );
 }
 
 export default Todo;

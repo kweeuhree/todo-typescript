@@ -1,5 +1,3 @@
-import { Error } from "@mui/icons-material";
-
 export const get = async () => {
     // get todos
     try {

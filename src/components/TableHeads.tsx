@@ -5,13 +5,14 @@ import { SortStateKey } from "../types/types";
 
 type Props = {
     sortTodos: (head: SortStateKey) => void;
+    userState: object,
 }
 
 const heads: SortStateKey[] = ['title', 'date', 'check'];
 const noHeads: string[] = ['', ''];
 
 
-const TableHeads = ( { sortTodos }: Props ) => {
+const TableHeads = ( { sortTodos, userState }: Props ) => {
 
     const headColumns = heads.map((head, index) => (
         <tr key={head+index}>
@@ -31,7 +32,7 @@ const TableHeads = ( { sortTodos }: Props ) => {
   return (
         <>
             { headColumns}
-            { noHeadColumns }
+            { userState.isAuthenticated && noHeadColumns }
         </>
 );
 

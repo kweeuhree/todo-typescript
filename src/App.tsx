@@ -13,6 +13,7 @@ import UserSignUpLoginForm from './components/UserSignUpLoginForm';
 import Button from '@mui/material/Button';
 // import fetching and helper logic
 import { get, create, deleteTodo, toggleTodoStatus } from './utils/fetchTodos';
+import { userLogout } from './utils/fetchUser';
 import { sort, filter, currentDate } from './utils/helpers';
 // import interfaces and types
 import { TodoInterface, CriterionInterface } from './interfaces/interfaces';
@@ -104,15 +105,33 @@ function App() {
     return setUserForm(formType);
   }
 
+  const handleLogout = async () => {
+    console.log('logging out with the following token:', userState.user.csrfToken);
+    const loggedOut = await userLogout(userState.user.csrfToken);
+    if(loggedOut) {
+      userDispatch({ type: 'LOGOUT' });
+      updateMessage(loggedOut.Flash);
+    } else {
+      updateMessage('Failed to log out');
+    }
+  }
+
   const { todos, error } = todoState;
 
 
   return (
     <>
     <p>{message}</p>
+    
     {/* sign up and login buttons */}
-    <Button onClick={() => showFormHandler('signup')}>Sign Up</Button>
-    <Button onClick={() => showFormHandler('login')}>Login</Button>
+   { userState.isAuthenticated ?
+      ( <Button onClick={handleLogout}>Log out</Button>
+    ) : (
+      <>
+        <Button onClick={() => showFormHandler('signup')}>Sign Up</Button>
+        <Button onClick={() => showFormHandler('login')}>Login</Button>
+      </>)
+    }
     { userForm && 
         <UserSignUpLoginForm 
           formType={userForm} 
@@ -134,11 +153,12 @@ function App() {
           filterTodos={filterTodos} 
           manipulateTodo={manipulateTodo}
           displayDefault={displayDefault} 
+          userState={userState}
         />
       )}
 
       {/* add new todo */}
-      <AddNew addTodo={addTodo}/>
+     {userState.isAuthenticated &&  <AddNew addTodo={addTodo}/>}
 
       {/* update an existing todo */}
       { edit &&  
