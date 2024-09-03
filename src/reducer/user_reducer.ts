@@ -9,10 +9,10 @@ export const initialState = {
     authError: '',
 }
 
-type State = typeof initialState;
+export type UserState = typeof initialState;
 
 // create reducer function
-export const reducer = (state: State, action: UserAction): State => {
+export const reducer = (state: UserState, action: UserAction): UserState => {
     switch(action.type) {
         case 'SIGNUP':
             return {

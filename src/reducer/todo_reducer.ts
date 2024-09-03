@@ -7,9 +7,9 @@ export const initialState = {
     error: '',
   };
   
-  type State = typeof initialState;
+  export type TodoState = typeof initialState;
 
-  export function reducer(state: State, action: TodoAction): State {
+  export function reducer(state: TodoState, action: TodoAction): TodoState {
     switch (action.type) {
       case 'INITIALIZE':
         return {

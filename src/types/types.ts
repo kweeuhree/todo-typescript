@@ -36,4 +36,3 @@ export type UserAction =
   | { type: 'LOGOUT'}
   | { type: 'ERROR'; payload: string }
   | { type: 'CSRF_TOKEN'; payload: string };
-  
