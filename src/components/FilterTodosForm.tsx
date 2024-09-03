@@ -1,14 +1,17 @@
-import useFormData from '../utils/useFormData';
+import { useContext } from 'react';
+// import hooks
+import useFormData from '../hooks/useFormData';
 // import interfaces
 import { CriterionInterface } from '../interfaces/interfaces';
+// import context
+import { TodoContext } from '../context/todo-context';
 
 type Props = {
     filter: string,
-    filterTodos: (criterion: CriterionInterface) => void,
 }
 
-const Form = ({ filter, filterTodos }: Props) => {
-
+const Form = ({ filter }: Props) => {
+    const { filterTodos } = useContext(TodoContext);
     // Initialize the formData state based on the filter type
     const initialState: CriterionInterface = filter === 'date' ? { date: '' } : { status: '' };
 

@@ -1,6 +1,6 @@
-import { SetStateAction, Dispatch, useRef, useEffect } from 'react';
+import { useRef, useEffect, useContext } from 'react';
 // import hooks
-import useFormData from '../utils/useFormData';
+import useFormData from '../hooks/useFormData';
 //import interfaces
 import { FormData } from '../interfaces/interfaces';
 // import material ui 
@@ -8,19 +8,18 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 //import interfaces and types
 import { TodoInterface } from '../interfaces/interfaces';
-import { TodoAction } from '../types/types'
 //  import backend functions
 import { update } from '../utils/fetchTodos';
+//import context 
+import { TodoContext } from '../context/todo-context';
 
 
 type Props = {
     todo: TodoInterface,
-    setEdit: Dispatch<SetStateAction<TodoInterface | null>>,
-    dispatch: Dispatch<TodoAction>,
-    userToken: string
 }
 
-const UpdateTodo = ({ todo, setEdit, dispatch, userToken }: Props) => {
+const UpdateTodo = ({ todo }: Props) => {
+    const { setEdit, todoDispatch, userCsrfToken } = useContext(TodoContext);
     const formRef = useRef<HTMLFormElement>(null);
 
     const initialState: FormData = { body: todo.Body };
@@ -38,10 +37,10 @@ const UpdateTodo = ({ todo, setEdit, dispatch, userToken }: Props) => {
 
 
     const newTodo = async (newTodo: string) => {
-        const updatedTodo = await update(todo.ID, newTodo, userToken);
+        const updatedTodo = await update(todo.ID, newTodo, userCsrfToken);
         if(updatedTodo) {
             todo.Body = updatedTodo.body;
-            dispatch({ type: 'UPDATE', payload: todo })
+            todoDispatch({ type: 'UPDATE', payload: todo })
         } 
         setEdit(null);
     }

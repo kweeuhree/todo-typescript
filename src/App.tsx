@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 // import custom hook that sets status messages
-import useMessage from './utils/useMessage';
+import useMessage from './hooks/useMessage';
 // import components
 import TodoTable from './components/TodoTable'
 import AddNew from './components/AddNew';
@@ -26,9 +26,7 @@ function App() {
 
   const { 
     userState, userDispatch, userCsrfToken,
-    todoState, todoDispatch, getTodos,
-    toggleStatus, sortTodos, filterTodos,
-    addTodo, manipulateTodo, edit, setEdit
+    todoState, getTodos, edit
   } = context;
 
   const [userForm, setUserForm] = useState('');
@@ -88,27 +86,15 @@ function App() {
         <p>Loading...</p>
       ) : (
         <TodoTable 
-          todos={todos} 
-          toggleStatus={toggleStatus} 
-          sortTodos={sortTodos} 
-          filterTodos={filterTodos} 
-          manipulateTodo={manipulateTodo}
           displayDefault={displayDefault} 
-          userState={userState}
         />
       )}
 
       {/* add new todo */}
-     {userState.isAuthenticated &&  <AddNew addTodo={addTodo}/>}
+     {userState.isAuthenticated &&  <AddNew />}
 
       {/* update an existing todo */}
-      { edit &&  
-        <UpdateTodo 
-          todo={edit} 
-          setEdit={setEdit} 
-          dispatch={todoDispatch}
-          userToken={userCsrfToken} 
-          />}
+      { edit && <UpdateTodo todo={edit} />}
     </>
   )
 }

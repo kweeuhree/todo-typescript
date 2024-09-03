@@ -1,18 +1,19 @@
+import { useContext } from 'react';
 //import react icons
 import { FaSort } from "react-icons/fa";
 // import types 
 import { SortStateKey } from "../types/types";
+// import context
+import { TodoContext } from '../context/todo-context';
 
-type Props = {
-    sortTodos: (head: SortStateKey) => void;
-    userState: object,
-}
 
 const heads: SortStateKey[] = ['title', 'date', 'check'];
 const noHeads: string[] = ['', ''];
 
 
-const TableHeads = ( { sortTodos, userState }: Props ) => {
+const TableHeads = () => {
+
+    const { userState, sortTodos } = useContext(TodoContext);
 
     const headColumns = heads.map((head, index) => (
         <tr key={head+index}>

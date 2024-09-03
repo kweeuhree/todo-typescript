@@ -12,8 +12,6 @@ export interface TodoInterface {
 
 export interface TodoProps {
     todo: TodoInterface;
-    toggleStatus: (id: string) => void; 
-    manipulateTodo: (action: string, todo: TodoInterface) => void,
   }
 
 export interface CriterionInterface {
@@ -29,7 +27,7 @@ export interface UserInterface {
   Uuid: string;
   Name: string;
   Email: string;
-  csrfToken: string;
+  csrfToken: string; 
 }
 
 export interface TodoContextType {

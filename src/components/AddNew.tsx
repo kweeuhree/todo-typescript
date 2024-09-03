@@ -1,17 +1,17 @@
+import { useContext } from 'react';
 // import material ui
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 //import interfaces
 import { FormData } from '../interfaces/interfaces';
 //import hooks
-import useFormData from '../utils/useFormData';
+import useFormData from '../hooks/useFormData';
+// import context
+import { TodoContext } from '../context/todo-context'
 
-type Props = {
-    addTodo: (newTodo: string) => void;
-}
 
-const AddNew = ({ addTodo } : Props) => {
-
+const AddNew = () => {
+    const { addTodo } = useContext(TodoContext);
     const initialState: FormData = { body: '' };
 
     const { formData, handleChange, handleSubmit } = useFormData(
