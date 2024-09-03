@@ -33,7 +33,9 @@ function App() {
   });
 
   const [edit, setEdit] = useState<TodoInterface | null>(null);
-  
+
+  const userCsrfToken = userState.user.csrfToken;
+
   //fetch todos
   const getTodos = useCallback(async () => {
     try {
@@ -49,7 +51,7 @@ function App() {
   }, [getTodos])
 
   const toggleStatus = async (todoId: string) => {
-    const toggled = await toggleTodoStatus(todoId);
+    const toggled = await toggleTodoStatus(todoId, userCsrfToken);
     if(toggled) {
       todoDispatch({ type: 'TOGGLE_STATUS', payload: todoId });
     }
@@ -80,7 +82,7 @@ function App() {
   };
 
   const addTodo = useCallback(async (newTodoString: string) => {
-    const createdTodo = await create(newTodoString);
+    const createdTodo = await create(newTodoString, userCsrfToken);
     const newTodo: TodoInterface = {
       ID: createdTodo.ID,
       Body: newTodoString,
@@ -88,7 +90,7 @@ function App() {
       Created: currentDate,
     }
     todoDispatch({ type: 'CREATE', payload: newTodo });
-  }, []);
+  }, [userCsrfToken]);
 
   const manipulateTodo = useCallback(async (action: string, todo: TodoInterface) => {
     switch(action) {
@@ -96,18 +98,18 @@ function App() {
         setEdit(todo);
         break;
       case 'delete':
-        await deleteTodo(todo.ID);
+        await deleteTodo(todo.ID, userCsrfToken);
         todoDispatch({ type: 'DELETE', payload: todo });
     }
-  }, []);
+  }, [userCsrfToken]);
 
   const showFormHandler = (formType: string) => {
     return setUserForm(formType);
   }
 
   const handleLogout = async () => {
-    console.log('logging out with the following token:', userState.user.csrfToken);
-    const loggedOut = await userLogout(userState.user.csrfToken);
+    console.log('logging out with the following token:', userCsrfToken);
+    const loggedOut = await userLogout(userCsrfToken);
     if(loggedOut) {
       userDispatch({ type: 'LOGOUT' });
       updateMessage(loggedOut.Flash);
@@ -165,7 +167,8 @@ function App() {
         <UpdateTodo 
           todo={edit} 
           setEdit={setEdit} 
-          dispatch={todoDispatch} 
+          dispatch={todoDispatch}
+          userToken={userCsrfToken} 
           />}
     </>
   )

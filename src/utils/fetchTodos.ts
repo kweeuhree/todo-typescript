@@ -17,13 +17,14 @@ export const get = async () => {
     }     
 };
 
-export const create = async (todoBody: string) => {
+export const create = async (todoBody: string, csrfToken: string) => {
     try {
         console.log('Attempting posting a new todo...');
         const response = await fetch('/api/todo/create', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'  
+                'Content-Type': 'application/json',
+                "X-CSRF-TOKEN": csrfToken  
             },
             body: JSON.stringify({ body: todoBody }), 
             credentials: 'include'
@@ -39,13 +40,14 @@ export const create = async (todoBody: string) => {
 }
 
 // update
-export const update = async (todoID: string, todoBody: string) => {
+export const update = async (todoID: string, todoBody: string, csrfToken: string) => {
     console.log('Attempting updating a todo with ID...', todoID);
     try {
         const response = await fetch(`/api/todo/update/${todoID}`, {
             method: "PUT",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "X-CSRF-TOKEN": csrfToken
             },
             body : JSON.stringify(todoBody)
         }
@@ -62,10 +64,13 @@ export const update = async (todoID: string, todoBody: string) => {
 }
 
 // toggle status
-export const toggleTodoStatus = async (todoId: string) => {
+export const toggleTodoStatus = async (todoId: string, csrfToken: string) => {
     try {
         const response = await fetch(`/api/todo/toggle-status/${todoId}`, {
-            method: "PUT"
+            method: "PUT",
+            headers:{
+                "X-CSRF-TOKEN": csrfToken
+            }
         })
         if(response.ok) {
             console.log('Status toggled successfully');
@@ -77,11 +82,14 @@ export const toggleTodoStatus = async (todoId: string) => {
 }
 
 // delete
-export const deleteTodo = async (todoId: string) => {
+export const deleteTodo = async (todoId: string, csrfToken: string) => {
     console.log("Attempting deleting a todo...");
     try {
         const response = await fetch(`/api/todo/delete/${todoId}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                "X-CSRF-TOKEN": csrfToken
+            }
         })
         if(response.ok) {
             console.log('Deleted successfully');

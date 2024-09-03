@@ -75,7 +75,7 @@ export const userLogout = async (csrfToken: string) => {
     console.log('Attempting user logging out');
     try {
         const response = await fetch(`/api/user/logout`, {
-            method: 'DELETE',
+            method: 'POST',
             headers: {
                 "Content-Type": "applicaton/json",
                 "X-CSRF-TOKEN": csrfToken

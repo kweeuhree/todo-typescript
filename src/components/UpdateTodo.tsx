@@ -17,9 +17,10 @@ type Props = {
     todo: TodoInterface,
     setEdit: Dispatch<SetStateAction<TodoInterface | null>>,
     dispatch: Dispatch<TodoAction>,
+    userToken: string
 }
 
-const UpdateTodo = ({ todo, setEdit, dispatch }: Props) => {
+const UpdateTodo = ({ todo, setEdit, dispatch, userToken }: Props) => {
     const formRef = useRef<HTMLFormElement>(null);
 
     const initialState: FormData = { body: todo.Body };
@@ -37,7 +38,7 @@ const UpdateTodo = ({ todo, setEdit, dispatch }: Props) => {
 
 
     const newTodo = async (newTodo: string) => {
-        const updatedTodo = await update(todo.ID, newTodo);
+        const updatedTodo = await update(todo.ID, newTodo, userToken);
         if(updatedTodo) {
             todo.Body = updatedTodo.body;
             dispatch({ type: 'UPDATE', payload: todo })
